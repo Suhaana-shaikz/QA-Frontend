@@ -138,6 +138,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
 
+console.log("NEW BUILD USING DEPLOYED API");
+
 // ✅ ADD THIS
 const STUDENT_API = "https://examsystem-3.onrender.com";
 
