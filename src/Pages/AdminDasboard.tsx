@@ -473,7 +473,7 @@ function AdminDashboard() {
   const [mode, setMode] = useState<"add" | "view" | "dash">("add");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [_questions, setQuestions] = useState<Question[]>([]);
   const [students, setStudents] = useState<StudentData[]>([]);
 
   const [editId, setEditId] = useState<number | null>(null);
