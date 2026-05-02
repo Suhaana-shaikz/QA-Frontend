@@ -442,8 +442,15 @@
 // export default AdminDashboard;
 
 
+
+
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+// ✅ ADD THESE TWO
+const STUDENT_API = "https://examsystem-3.onrender.com";
+const QUESTION_API = "https://examsystem-4.onrender.com";
 
 type Question = {
   id: number;
@@ -483,17 +490,16 @@ function AdminDashboard() {
 
   // 🔥 LOAD QUESTIONS
   const loadQuestions = async () => {
-    const res = await axios.get("http://localhost:8082/questions/all", {
+    const res = await axios.get(`${QUESTION_API}/questions/all`, {
       headers: { Authorization: `Basic ${token}` }
     });
 
-    // sort by ID (important)
     setQuestions(res.data.sort((a: Question, b: Question) => a.id - b.id));
   };
 
   // 🔥 LOAD STUDENTS
   const loadStudents = async () => {
-    const res = await axios.get("http://localhost:8082/student/dashboard", {
+    const res = await axios.get(`${STUDENT_API}/student/dashboard`, {
       headers: { Authorization: `Basic ${token}` }
     });
     setStudents(res.data);
@@ -503,7 +509,7 @@ function AdminDashboard() {
     if (mode === "view") loadQuestions();
     if (mode === "dash") {
       loadStudents();
-      loadQuestions(); // 🔥 VERY IMPORTANT
+      loadQuestions();
     }
   }, [mode]);
 
@@ -514,14 +520,14 @@ function AdminDashboard() {
 
     if (editId) {
       await axios.put(
-        `http://localhost:8082/questions/${editId}`,
+        `${QUESTION_API}/questions/${editId}`,
         form,
         { headers: { Authorization: `Basic ${token}` } }
       );
       alert("Updated ✅");
     } else {
       await axios.post(
-        "http://localhost:8082/questions",
+        `${QUESTION_API}/questions`,
         form,
         { headers: { Authorization: `Basic ${token}` } }
       );
@@ -548,7 +554,7 @@ function AdminDashboard() {
 
   // 🔥 DELETE
   const handleDelete = async (id: number) => {
-    await axios.delete(`http://localhost:8082/questions/${id}`, {
+    await axios.delete(`${QUESTION_API}/questions/${id}`, {
       headers: { Authorization: `Basic ${token}` }
     });
     loadQuestions();
@@ -563,244 +569,46 @@ function AdminDashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
 
-      {/* 🔹 MOBILE TOP BAR */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-gray-900 text-white flex items-center p-3 z-50">
-        <button onClick={() => setMenuOpen(!menuOpen)} className="mr-3 text-xl">
-          ☰
-        </button>
+        <button onClick={() => setMenuOpen(!menuOpen)} className="mr-3 text-xl">☰</button>
         <h2 className="text-lg font-semibold">Admin Panel</h2>
       </div>
 
-      {/* 🔹 SIDEBAR */}
-      <div className={`
-        fixed md:static top-0 left-0 h-full w-64 bg-gray-900 text-white p-5
+      <div className={`fixed md:static top-0 left-0 h-full w-64 bg-gray-900 text-white p-5
         transform ${menuOpen ? "translate-x-0" : "-translate-x-full"}
-        md:translate-x-0 transition-transform duration-300 z-40
-      `}>
-        <h2 className="text-2xl font-bold mb-6 hidden md:block">Admin Panel</h2>
+        md:translate-x-0 transition-transform`}>
 
-        <button onClick={() => { setMode("add"); setMenuOpen(false); }}
-          className="w-full mb-3 p-2 bg-blue-600 rounded">
+        <button onClick={() => setMode("add")} className="w-full mb-3 p-2 bg-blue-600 rounded">
           Add Question
         </button>
 
-        <button onClick={() => { setMode("view"); setMenuOpen(false); }}
-          className="w-full mb-3 p-2 bg-green-600 rounded">
+        <button onClick={() => setMode("view")} className="w-full mb-3 p-2 bg-green-600 rounded">
           View Questions
         </button>
 
-        <button onClick={() => { setMode("dash"); setMenuOpen(false); }}
-          className="w-full mb-3 p-2 bg-purple-600 rounded">
+        <button onClick={() => setMode("dash")} className="w-full mb-3 p-2 bg-purple-600 rounded">
           Dashboard
         </button>
 
-        <button onClick={logout}
-          className="w-full p-2 bg-red-600 rounded">
+        <button onClick={logout} className="w-full p-2 bg-red-600 rounded">
           Logout
         </button>
       </div>
 
-      {/* 🔹 MAIN CONTENT */}
-      <div className="flex-1 p-4 md:p-6 overflow-auto w-full mt-14 md:mt-0">
+      <div className="flex-1 p-4">
 
-        {/* ✅ ADD */}
-        {mode === "add" && (
-          <div className="bg-white p-4 md:p-6 rounded shadow max-w-2xl mx-auto">
-            <h2 className="text-xl font-semibold mb-4">
-              {editId ? "Edit Question" : "Add Question"}
-            </h2>
-
-            {["question", "option1", "option2", "option3", "option4"].map((field) => (
-              <input
-                key={field}
-                className="w-full p-2 border rounded mb-2"
-                placeholder={field}
-                value={(form as any)[field]}
-                onChange={e => setForm({ ...form, [field]: e.target.value })}
-              />
-            ))}
-
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-600 text-white px-5 py-2 rounded w-full"
-            >
-              {editId ? "Update" : "Add Question"}
-            </button>
-          </div>
+        {/* DASHBOARD */}
+        {mode === "dash" && (
+          <button
+            onClick={() => window.open(`${STUDENT_API}/student/download`)}
+            className="bg-yellow-500 text-white px-4 py-2 rounded"
+          >
+            Download CSV
+          </button>
         )}
-
-        {/* ✅ VIEW QUESTIONS */}
-        {mode === "view" && (
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-xl font-semibold mb-4">Questions List</h2>
-
-            {questions.map((q, i) => (
-              <div key={q.id} className="bg-white p-4 rounded shadow mb-3">
-                <p className="font-bold mb-2">
-                  {i + 1}. {q.question}
-                </p>
-
-                <p>A: {q.option1}</p>
-                <p>B: {q.option2}</p>
-                <p>C: {q.option3}</p>
-                <p>D: {q.option4}</p>
-
-                <div className="mt-3 flex gap-2">
-                  <button onClick={() => handleEdit(q)}
-                    className="px-3 py-1 bg-green-500 text-white rounded">
-                    Edit
-                  </button>
-
-                  <button onClick={() => handleDelete(q.id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded">
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* ✅ DASHBOARD */}
-        {/* ✅ DASHBOARD */}
-{mode === "dash" && (
-
-  <div className="max-w-6xl mx-auto">
-
-    {/* HEADER */}
-    <div className="flex flex-col md:flex-row justify-between mb-6 gap-3">
-      <h2 className="text-2xl font-bold">Student Results</h2>
-
-      <button
-        onClick={() => window.open("http://localhost:8082/student/download")}
-        className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
-      >
-        Download CSV
-      </button>
-    </div>
-
-    {/* 🔥 GROUP DATA BY USER */}
-    {(() => {
-
-      const grouped = students.reduce((acc: any, curr) => {
-
-        if (!acc[curr.email]) {
-          acc[curr.email] = {
-            name: curr.name,
-            email: curr.email,
-            answers: []
-          };
-        }
-
-        acc[curr.email].answers.push(curr);
-
-        return acc;
-
-      }, {});
-
-      return (
-
-        <div className="space-y-6">
-
-          {Object.values(grouped).map((user: any, i) => (
-
-            <div key={i} className="bg-white p-5 rounded-xl shadow">
-
-              {/* USER INFO */}
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold">
-                  👤 {user.name}
-                </h3>
-
-                <p className="text-gray-500 text-sm">
-                  {user.email}
-                </p>
-              </div>
-
-              {/* ANSWERS GRID */}
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-
-                {user.answers.map((a: any, index: number) => {
-
-                  const qIndex = questions.findIndex(
-                    q => q.id === a.questionId
-                  );
-
-                  const question = questions.find(
-                    q => q.id === a.questionId
-                  );
-
-                  return (
-                    <div
-                      key={index}
-                      className="p-3 border rounded-lg bg-gray-50"
-                    >
-
-                      {/* QUESTION NUMBER */}
-                      <p className="font-medium text-sm">
-                        Q{qIndex === -1 ? "Deleted" : qIndex + 1}
-                      </p>
-
-                      {/* QUESTION TEXT */}
-                      <p className="text-xs text-gray-500 mb-1">
-                        {question
-                          ? question.question
-                          : "Question Deleted"}
-                      </p>
-
-                      {/* ANSWER */}
-                      <p className="text-blue-600 font-semibold">
-                        Answer: {a.selectedOption}
-                      </p>
-
-                    </div>
-                  );
-                })}
-
-              </div>
-
-            </div>
-
-          ))}
-
-        </div>
-
-      );
-
-    })()}
-
-  </div>
-
-)}
-
-
-
-
-
-
-
-
-
-
 
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   );
 }
 
