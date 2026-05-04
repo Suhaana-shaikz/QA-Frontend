@@ -684,10 +684,9 @@ type StudentData = {
 
 type Mode = "add" | "view" | "dash";
 
-function AdminDashboard()  {
+function AdminDashboard() {
 
   const [mode, setMode] = useState<Mode>("add");
-
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [students, setStudents] = useState<StudentData[]>([]);
@@ -702,34 +701,36 @@ function AdminDashboard()  {
     option4: ""
   });
 
-  const token: string | null = localStorage.getItem("auth");
+  const token = localStorage.getItem("auth");
 
-  // LOAD QUESTIONS
-  const loadQuestions = async (): Promise<void> => {
+  // 🔥 CREATE HEADERS SAFELY
+  const getHeaders = () => {
+    return token
+      ? { Authorization: `Basic ${token}` }
+      : {};
+  };
+
+  // 🔥 LOAD QUESTIONS (ADMIN)
+  const loadQuestions = async () => {
     try {
       const res: AxiosResponse<Question[]> = await axios.get(
         `${QUESTION_API}/questions/all`,
-        {
-          headers: { Authorization: `Basic ${token}` }
-        }
+        { headers: getHeaders() }
       );
 
-      const sorted = res.data.sort((a, b) => a.id - b.id);
-      setQuestions(sorted);
+      setQuestions(res.data.sort((a, b) => a.id - b.id));
 
     } catch (error) {
       console.error("Error loading questions", error);
     }
   };
 
-  // LOAD STUDENTS
-  const loadStudents = async (): Promise<void> => {
+  // 🔥 LOAD STUDENTS (ADMIN)
+  const loadStudents = async () => {
     try {
       const res: AxiosResponse<StudentData[]> = await axios.get(
         `${STUDENT_API}/student/dashboard`,
-        {
-          headers: { Authorization: `Basic ${token}` }
-        }
+        { headers: getHeaders() }
       );
 
       setStudents(res.data);
@@ -747,8 +748,8 @@ function AdminDashboard()  {
     }
   }, [mode]);
 
-  // ADD / UPDATE
-  const handleSubmit = async (): Promise<void> => {
+  // 🔥 ADD / UPDATE
+  const handleSubmit = async () => {
     if (!form.question.trim()) {
       alert("Enter question");
       return;
@@ -756,14 +757,18 @@ function AdminDashboard()  {
 
     try {
       if (editId !== null) {
-        await axios.put(`${QUESTION_API}/questions/${editId}`, form, {
-          headers: { Authorization: `Basic ${token}` }
-        });
+        await axios.put(
+          `${QUESTION_API}/questions/${editId}`,
+          form,
+          { headers: getHeaders() }
+        );
         alert("Updated ✅");
       } else {
-        await axios.post(`${QUESTION_API}/questions`, form, {
-          headers: { Authorization: `Basic ${token}` }
-        });
+        await axios.post(
+          `${QUESTION_API}/questions`,
+          form,
+          { headers: getHeaders() }
+        );
         alert("Added ✅");
       }
 
@@ -776,34 +781,36 @@ function AdminDashboard()  {
       });
 
       setEditId(null);
+      loadQuestions();
 
     } catch (error) {
       console.error("Submit error", error);
     }
   };
 
-  // EDIT
-  const handleEdit = (q: Question): void => {
+  // 🔥 EDIT
+  const handleEdit = (q: Question) => {
     const { id, ...rest } = q;
     setForm(rest);
     setEditId(id);
     setMode("add");
   };
 
-  // DELETE
-  const handleDelete = async (id: number): Promise<void> => {
+  // 🔥 DELETE
+  const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`${QUESTION_API}/questions/${id}`, {
-        headers: { Authorization: `Basic ${token}` }
-      });
-      await loadQuestions();
+      await axios.delete(
+        `${QUESTION_API}/questions/${id}`,
+        { headers: getHeaders() }
+      );
+      loadQuestions();
     } catch (error) {
       console.error("Delete error", error);
     }
   };
 
-  // LOGOUT
-  const logout = (): void => {
+  // 🔥 LOGOUT
+  const logout = () => {
     localStorage.removeItem("auth");
     window.location.href = "/admin-login";
   };
@@ -813,10 +820,21 @@ function AdminDashboard()  {
 
       {/* SIDEBAR */}
       <div className="w-64 bg-gray-900 text-white p-5 space-y-3">
-        <button onClick={() => setMode("add")} className="w-full p-2 bg-blue-600 rounded">Add</button>
-        <button onClick={() => setMode("view")} className="w-full p-2 bg-green-600 rounded">View</button>
-        <button onClick={() => setMode("dash")} className="w-full p-2 bg-purple-600 rounded">Dashboard</button>
-        <button onClick={logout} className="w-full p-2 bg-red-600 rounded">Logout</button>
+        <button onClick={() => setMode("add")} className="w-full p-2 bg-blue-600 rounded">
+          Add
+        </button>
+
+        <button onClick={() => setMode("view")} className="w-full p-2 bg-green-600 rounded">
+          View
+        </button>
+
+        <button onClick={() => setMode("dash")} className="w-full p-2 bg-purple-600 rounded">
+          Dashboard
+        </button>
+
+        <button onClick={logout} className="w-full p-2 bg-red-600 rounded">
+          Logout
+        </button>
       </div>
 
       {/* MAIN */}
@@ -839,9 +857,13 @@ function AdminDashboard()  {
               />
             ))}
 
-            <button onClick={handleSubmit} className="bg-blue-600 text-white px-4 py-2 rounded">
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
               {editId ? "Update" : "Add"}
             </button>
+
           </div>
         )}
 
@@ -851,10 +873,23 @@ function AdminDashboard()  {
             {questions.map((q) => (
               <div key={q.id} className="bg-white p-4 rounded shadow">
                 <p>{q.question}</p>
+
                 <div className="flex gap-2 mt-2">
-                  <button onClick={() => handleEdit(q)} className="bg-green-500 px-2 py-1 text-white rounded">Edit</button>
-                  <button onClick={() => handleDelete(q.id)} className="bg-red-500 px-2 py-1 text-white rounded">Delete</button>
+                  <button
+                    onClick={() => handleEdit(q)}
+                    className="bg-green-500 px-2 py-1 text-white rounded"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={() => handleDelete(q.id)}
+                    className="bg-red-500 px-2 py-1 text-white rounded"
+                  >
+                    Delete
+                  </button>
                 </div>
+
               </div>
             ))}
           </div>
@@ -863,6 +898,7 @@ function AdminDashboard()  {
         {/* DASHBOARD */}
         {mode === "dash" && (
           <div>
+
             <button
               onClick={() => window.open(`${STUDENT_API}/student/download`)}
               className="bg-yellow-500 text-white px-4 py-2 rounded mb-4"
@@ -876,6 +912,7 @@ function AdminDashboard()  {
                 <p>QID: {s.questionId} | Ans: {s.selectedOption}</p>
               </div>
             ))}
+
           </div>
         )}
 
