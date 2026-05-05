@@ -184,7 +184,7 @@ function StudentForm() {
 
       // ✅ FIXED
       const res = await axios.get(
-        `${STUDENT_API}/student/questions`
+        "https://examsystem-4.onrender.com/questions/random"
       );
 
       localStorage.setItem("questions", JSON.stringify(res.data));
