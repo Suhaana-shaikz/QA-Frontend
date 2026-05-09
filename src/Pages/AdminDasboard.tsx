@@ -659,13 +659,23 @@
 
 
 
+
 import { useEffect, useState } from "react";
 import axios, { type AxiosResponse } from "axios";
+import {
+  LayoutDashboard,
+  PlusCircle,
+  Eye,
+  LogOut,
+  Download,
+  Pencil,
+  Trash2,
+  Menu
+} from "lucide-react";
 
 const STUDENT_API = "https://examsystem-3.onrender.com";
 const QUESTION_API = "https://examsystem-4.onrender.com";
 
-// TYPES
 type Question = {
   id: number;
   question: string;
@@ -693,6 +703,8 @@ function AdminDashboard() {
 
   const [editId, setEditId] = useState<number | null>(null);
 
+  const [mobileMenu, setMobileMenu] = useState(false);
+
   const [form, setForm] = useState<Omit<Question, "id">>({
     question: "",
     option1: "",
@@ -703,14 +715,12 @@ function AdminDashboard() {
 
   const token = localStorage.getItem("auth");
 
-  // 🔥 CREATE HEADERS SAFELY
   const getHeaders = () => {
     return token
       ? { Authorization: `Basic ${token}` }
       : {};
   };
 
-  // 🔥 LOAD QUESTIONS (ADMIN)
   const loadQuestions = async () => {
     try {
       const res: AxiosResponse<Question[]> = await axios.get(
@@ -721,11 +731,10 @@ function AdminDashboard() {
       setQuestions(res.data.sort((a, b) => a.id - b.id));
 
     } catch (error) {
-      console.error("Error loading questions", error);
+      console.error(error);
     }
   };
 
-  // 🔥 LOAD STUDENTS (ADMIN)
   const loadStudents = async () => {
     try {
       const res: AxiosResponse<StudentData[]> = await axios.get(
@@ -736,40 +745,47 @@ function AdminDashboard() {
       setStudents(res.data);
 
     } catch (error) {
-      console.error("Error loading students", error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
     if (mode === "view") loadQuestions();
+
     if (mode === "dash") {
       loadStudents();
       loadQuestions();
     }
   }, [mode]);
 
-  // 🔥 ADD / UPDATE
   const handleSubmit = async () => {
+
     if (!form.question.trim()) {
-      alert("Enter question");
+      alert("Enter Question");
       return;
     }
 
     try {
+
       if (editId !== null) {
+
         await axios.put(
           `${QUESTION_API}/questions/${editId}`,
           form,
           { headers: getHeaders() }
         );
-        alert("Updated ✅");
+
+        alert("Updated Successfully");
+
       } else {
+
         await axios.post(
           `${QUESTION_API}/questions`,
           form,
           { headers: getHeaders() }
         );
-        alert("Added ✅");
+
+        alert("Question Added");
       }
 
       setForm({
@@ -781,14 +797,14 @@ function AdminDashboard() {
       });
 
       setEditId(null);
+
       loadQuestions();
 
     } catch (error) {
-      console.error("Submit error", error);
+      console.error(error);
     }
   };
 
-  // 🔥 EDIT
   const handleEdit = (q: Question) => {
     const { id, ...rest } = q;
     setForm(rest);
@@ -796,102 +812,197 @@ function AdminDashboard() {
     setMode("add");
   };
 
-  // 🔥 DELETE
   const handleDelete = async (id: number) => {
     try {
+
       await axios.delete(
         `${QUESTION_API}/questions/${id}`,
         { headers: getHeaders() }
       );
+
       loadQuestions();
+
     } catch (error) {
-      console.error("Delete error", error);
+      console.error(error);
     }
   };
 
-  // 🔥 LOGOUT
   const logout = () => {
     localStorage.removeItem("auth");
     window.location.href = "/admin-login";
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="min-h-screen flex bg-slate-100">
 
-      {/* SIDEBAR */}
-      <div className="w-64 bg-gray-900 text-white p-5 space-y-3">
-        <button onClick={() => setMode("add")} className="w-full p-2 bg-blue-600 rounded">
-          Add
-        </button>
+      {/* MOBILE TOPBAR */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-50 p-4 flex items-center justify-between">
+        <h1 className="font-bold text-xl text-slate-800">
+          Admin Panel
+        </h1>
 
-        <button onClick={() => setMode("view")} className="w-full p-2 bg-green-600 rounded">
-          View
-        </button>
-
-        <button onClick={() => setMode("dash")} className="w-full p-2 bg-purple-600 rounded">
-          Dashboard
-        </button>
-
-        <button onClick={logout} className="w-full p-2 bg-red-600 rounded">
-          Logout
+        <button onClick={() => setMobileMenu(!mobileMenu)}>
+          <Menu className="text-slate-700" />
         </button>
       </div>
 
-      {/* MAIN */}
-      <div className="flex-1 p-4 overflow-auto">
+      {/* SIDEBAR */}
+      <aside className={`
+        fixed lg:static z-40 top-0 left-0 h-full
+        w-72 bg-gradient-to-b from-slate-900 to-slate-800
+        text-white p-6 transition-all duration-300
+        ${mobileMenu ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      `}>
 
-        {/* ADD */}
+        <div className="mb-10">
+          <h1 className="text-3xl font-bold tracking-wide">
+            Admin Panel
+          </h1>
+
+          <p className="text-slate-400 text-sm mt-2">
+            Online Exam Management
+          </p>
+        </div>
+
+        <div className="space-y-4">
+
+          <button
+            onClick={() => {
+              setMode("add");
+              setMobileMenu(false);
+            }}
+            className="w-full flex items-center gap-3 bg-blue-600 hover:bg-blue-700 transition-all px-4 py-3 rounded-xl shadow-lg"
+          >
+            <PlusCircle size={20} />
+            Add Question
+          </button>
+
+          <button
+            onClick={() => {
+              setMode("view");
+              setMobileMenu(false);
+            }}
+            className="w-full flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 transition-all px-4 py-3 rounded-xl shadow-lg"
+          >
+            <Eye size={20} />
+            View Questions
+          </button>
+
+          <button
+            onClick={() => {
+              setMode("dash");
+              setMobileMenu(false);
+            }}
+            className="w-full flex items-center gap-3 bg-violet-600 hover:bg-violet-700 transition-all px-4 py-3 rounded-xl shadow-lg"
+          >
+            <LayoutDashboard size={20} />
+            Dashboard
+          </button>
+
+          <button
+            onClick={logout}
+            className="w-full flex items-center gap-3 bg-red-600 hover:bg-red-700 transition-all px-4 py-3 rounded-xl shadow-lg"
+          >
+            <LogOut size={20} />
+            Logout
+          </button>
+
+        </div>
+      </aside>
+
+      {/* MAIN CONTENT */}
+      <main className="flex-1 p-4 lg:p-8 mt-20 lg:mt-0">
+
+        {/* ADD QUESTION */}
         {mode === "add" && (
-          <div className="bg-white p-4 rounded shadow max-w-lg space-y-2">
+          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8">
 
-            {Object.keys(form).map((key) => (
-              <input
-                key={key}
-                type="text"
-                placeholder={key}
-                value={form[key as keyof typeof form]}
-                onChange={(e) =>
-                  setForm({ ...form, [key]: e.target.value })
-                }
-                className="w-full p-2 border"
-              />
-            ))}
+            <h2 className="text-3xl font-bold text-slate-800 mb-8">
+              {editId ? "Update Question" : "Add New Question"}
+            </h2>
 
-            <button
-              onClick={handleSubmit}
-              className="bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              {editId ? "Update" : "Add"}
-            </button>
+            <div className="grid gap-5">
 
+              {Object.keys(form).map((key) => (
+                <input
+                  key={key}
+                  type="text"
+                  placeholder={key}
+                  value={form[key as keyof typeof form]}
+                  onChange={(e) =>
+                    setForm({ ...form, [key]: e.target.value })
+                  }
+                  className="w-full border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all p-4 rounded-xl"
+                />
+              ))}
+
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-600 hover:bg-blue-700 transition-all text-white py-4 rounded-xl text-lg font-semibold shadow-lg"
+              >
+                {editId ? "Update Question" : "Add Question"}
+              </button>
+
+            </div>
           </div>
         )}
 
-        {/* VIEW */}
+        {/* VIEW QUESTIONS */}
         {mode === "view" && (
-          <div className="space-y-3">
-            {questions.map((q) => (
-              <div key={q.id} className="bg-white p-4 rounded shadow">
-                <p>{q.question}</p>
+          <div className="grid gap-6">
 
-                <div className="flex gap-2 mt-2">
+            {questions.map((q) => (
+              <div
+                key={q.id}
+                className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all"
+              >
+
+                <h3 className="text-xl font-semibold text-slate-800">
+                  {q.question}
+                </h3>
+
+                <div className="grid md:grid-cols-2 gap-3 mt-5 text-slate-600">
+
+                  <div className="bg-slate-100 p-3 rounded-lg">
+                    A. {q.option1}
+                  </div>
+
+                  <div className="bg-slate-100 p-3 rounded-lg">
+                    B. {q.option2}
+                  </div>
+
+                  <div className="bg-slate-100 p-3 rounded-lg">
+                    C. {q.option3}
+                  </div>
+
+                  <div className="bg-slate-100 p-3 rounded-lg">
+                    D. {q.option4}
+                  </div>
+
+                </div>
+
+                <div className="flex gap-4 mt-6">
+
                   <button
                     onClick={() => handleEdit(q)}
-                    className="bg-green-500 px-2 py-1 text-white rounded"
+                    className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-lg"
                   >
+                    <Pencil size={16} />
                     Edit
                   </button>
 
                   <button
                     onClick={() => handleDelete(q.id)}
-                    className="bg-red-500 px-2 py-1 text-white rounded"
+                    className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
                   >
+                    <Trash2 size={16} />
                     Delete
                   </button>
-                </div>
 
+                </div>
               </div>
             ))}
+
           </div>
         )}
 
@@ -899,24 +1010,66 @@ function AdminDashboard() {
         {mode === "dash" && (
           <div>
 
-            <button
-              onClick={() => window.open(`${STUDENT_API}/student/download`)}
-              className="bg-yellow-500 text-white px-4 py-2 rounded mb-4"
-            >
-              Download CSV
-            </button>
+            <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
 
-            {students.map((s, i) => (
-              <div key={i} className="bg-white p-3 mb-2 rounded shadow">
-                <p>{s.name} - {s.email}</p>
-                <p>QID: {s.questionId} | Ans: {s.selectedOption}</p>
-              </div>
-            ))}
+              <h2 className="text-3xl font-bold text-slate-800">
+                Student Dashboard
+              </h2>
 
+              <button
+                onClick={() =>
+                  window.open(`${STUDENT_API}/student/download`)
+                }
+                className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 transition-all text-white px-5 py-3 rounded-xl shadow-lg"
+              >
+                <Download size={18} />
+                Download CSV
+              </button>
+
+            </div>
+
+            <div className="grid gap-5">
+
+              {students.map((s, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-2xl shadow-lg p-6 border border-slate-100"
+                >
+
+                  <div className="flex flex-col md:flex-row md:justify-between gap-3">
+
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-800">
+                        {s.name}
+                      </h3>
+
+                      <p className="text-slate-500">
+                        {s.email}
+                      </p>
+                    </div>
+
+                    <div className="flex gap-4 flex-wrap">
+
+                      <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">
+                        QID: {s.questionId}
+                      </div>
+
+                      <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg">
+                        Answer: {s.selectedOption}
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
           </div>
         )}
 
-      </div>
+      </main>
     </div>
   );
 }

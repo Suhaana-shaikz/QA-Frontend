@@ -411,23 +411,108 @@ function Exam() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100">
+  <div className="min-h-screen bg-[#0f172a] relative overflow-hidden">
 
-      <div className="sticky top-0 bg-white shadow px-4 py-3 flex justify-between">
-        <h2 className="font-bold text-blue-700">📝 Online Exam</h2>
-        <span>Total Questions: {questions.length}</span>
+    {/* BACKGROUND EFFECTS */}
+    <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-500/20 blur-[120px] rounded-full"></div>
+    <div className="absolute bottom-0 right-0 w-80 h-80 bg-violet-500/20 blur-[120px] rounded-full"></div>
+
+    {/* TOP BAR */}
+    <div className="
+      sticky top-0 z-50
+      backdrop-blur-xl
+      bg-white/10
+      border-b border-white/10
+    ">
+
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+
+        <div>
+          <h1 className="text-2xl font-black text-white">
+            📝 Online Examination
+          </h1>
+
+          <p className="text-slate-300 text-sm mt-1">
+            Complete all questions carefully
+          </p>
+        </div>
+
+        <div className="
+          bg-white/10
+          border border-white/10
+          px-5 py-3
+          rounded-2xl
+          text-white
+          shadow-lg
+        ">
+          <p className="text-sm text-slate-300">
+            Total Questions
+          </p>
+
+          <h2 className="text-2xl font-bold">
+            {questions.length}
+          </h2>
+        </div>
+
       </div>
+    </div>
 
-      <div className="max-w-5xl mx-auto p-4">
+    {/* QUESTIONS */}
+    <div className="max-w-5xl mx-auto px-4 py-10 relative z-10">
 
-        {questions.map((q, index) => (
-          <div key={q.id} className="bg-white p-5 mb-4 rounded shadow">
+      {questions.map((q, index) => (
 
-            <p className="font-semibold">
-              Q{index + 1}. {q.question}
-            </p>
+        <div
+          key={q.id}
+          className="
+            mb-8
+            bg-white/10
+            backdrop-blur-xl
+            border border-white/10
+            rounded-[28px]
+            shadow-2xl
+            overflow-hidden
+          "
+        >
 
-            {[ 
+          {/* QUESTION HEADER */}
+          <div className="
+            bg-gradient-to-r from-cyan-500/20 to-blue-600/20
+            border-b border-white/10
+            px-6 py-5
+          ">
+
+            <div className="flex items-center gap-4">
+
+              <div className="
+                w-12 h-12
+                rounded-2xl
+                bg-gradient-to-br from-cyan-500 to-blue-600
+                flex items-center justify-center
+                text-white
+                font-black
+                shadow-lg
+              ">
+                {index + 1}
+              </div>
+
+              <div>
+                <p className="text-sm text-cyan-200 font-semibold">
+                  QUESTION {index + 1}
+                </p>
+
+                <h2 className="text-xl md:text-2xl font-bold text-white mt-1">
+                  {q.question}
+                </h2>
+              </div>
+
+            </div>
+          </div>
+
+          {/* OPTIONS */}
+          <div className="p-6 grid gap-4">
+
+            {[
               { key: "A", value: q.option1 },
               { key: "B", value: q.option2 },
               { key: "C", value: q.option3 },
@@ -435,36 +520,120 @@ function Exam() {
             ].map(opt => {
 
               const isSelected = answers.find(
-                a => a.questionId === q.id && a.selectedOption === opt.key
+                a =>
+                  a.questionId === q.id &&
+                  a.selectedOption === opt.key
               );
 
               return (
-                <label key={opt.key} className="block mt-2">
+
+                <label
+                  key={opt.key}
+                  className={`
+                    group cursor-pointer
+                    border rounded-2xl
+                    p-5
+                    transition-all duration-300
+                    flex items-center gap-4
+
+                    ${isSelected
+                      ? "bg-cyan-500 border-cyan-400 shadow-xl scale-[1.01]"
+                      : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-400"
+                    }
+                  `}
+                >
+
                   <input
                     type="radio"
                     name={q.id.toString()}
                     checked={!!isSelected}
                     onChange={() => handleSelect(q.id, opt.key)}
+                    className="hidden"
                   />
-                  {opt.key}. {opt.value}
+
+                  {/* OPTION LETTER */}
+                  <div className={`
+                    min-w-[50px] h-[50px]
+                    rounded-2xl
+                    flex items-center justify-center
+                    font-black text-lg
+                    transition-all
+
+                    ${isSelected
+                      ? "bg-white text-cyan-600"
+                      : "bg-white/10 text-white group-hover:bg-cyan-500"
+                    }
+                  `}>
+                    {opt.key}
+                  </div>
+
+                  {/* OPTION TEXT */}
+                  <div className="flex-1">
+
+                    <p className={`
+                      text-lg font-semibold transition-all
+
+                      ${isSelected
+                        ? "text-white"
+                        : "text-slate-200"
+                      }
+                    `}>
+                      {opt.value}
+                    </p>
+
+                  </div>
+
+                  {/* SELECTED ICON */}
+                  {isSelected && (
+                    <div className="
+                      w-6 h-6 rounded-full
+                      bg-white
+                      flex items-center justify-center
+                    ">
+                      <div className="w-3 h-3 bg-cyan-500 rounded-full"></div>
+                    </div>
+                  )}
+
                 </label>
               );
             })}
-          </div>
-        ))}
 
-        <div className="text-center mt-6">
-          <button
-            onClick={handleSubmit}
-            className="bg-green-600 text-white px-6 py-3 rounded"
-          >
-            Submit Exam
-          </button>
+          </div>
+
         </div>
+      ))}
+
+      {/* SUBMIT BUTTON */}
+      <div className="text-center mt-12">
+
+        <button
+          onClick={handleSubmit}
+          className="
+            relative overflow-hidden
+            bg-gradient-to-r from-emerald-500 to-green-600
+            hover:from-emerald-600 hover:to-green-700
+            text-white
+            px-12 py-5
+            rounded-2xl
+            text-xl
+            font-bold
+            shadow-2xl
+            hover:scale-[1.03]
+            transition-all duration-300
+          "
+        >
+          Submit Examination 🚀
+        </button>
+
+        <p className="text-slate-400 text-sm mt-4">
+          Ensure all answers are selected before submitting.
+        </p>
 
       </div>
+
     </div>
-  );
+  </div>
+);
 }
 
 export default Exam;
