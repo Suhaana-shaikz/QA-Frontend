@@ -328,14 +328,479 @@
 
 
 
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+
+// // ✅ ADD THIS
+// const STUDENT_API = "https://examsystem-3.onrender.com";
+
+// // ✅ TYPES
+// type Question = {
+//   id: number;
+//   question: string;
+//   option1: string;
+//   option2: string;
+//   option3: string;
+//   option4: string;
+// };
+
+// type Answer = {
+//   questionId: number;
+//   selectedOption: string;
+// };
+
+// function Exam() {
+
+//   const [questions, setQuestions] = useState<Question[]>([]);
+//   const [answers, setAnswers] = useState<Answer[]>([]);
+
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const saved = localStorage.getItem("questions");
+
+//     if (!saved) {
+//       alert("Session expired");
+//       navigate("/student");
+//       return;
+//     }
+
+//     setQuestions(JSON.parse(saved));
+//   }, []);
+
+//   const handleSelect = (qId: number, option: string) => {
+//     setAnswers(prev => [
+//       ...prev.filter(a => a.questionId !== qId),
+//       { questionId: qId, selectedOption: option }
+//     ]);
+//   };
+
+//   const handleSubmit = async () => {
+
+//     const studentData = JSON.parse(localStorage.getItem("studentData") || "null");
+
+//     if (!studentData) {
+//       alert("Session expired");
+//       navigate("/student");
+//       return;
+//     }
+
+//     if (answers.length !== questions.length) {
+//       alert("Please answer all questions");
+//       return;
+//     }
+
+//     try {
+//       // ✅ FIXED URL
+//       await axios.post(`${STUDENT_API}/student/submit`, {
+//         ...studentData,
+//         answers
+//       });
+
+//       alert("Submitted Successfully ✅");
+
+//       localStorage.removeItem("studentData");
+//       localStorage.removeItem("questions");
+
+//       navigate("/");
+
+//     } catch (err) {
+//       alert("Error submitting exam");
+//     }
+//   };
+
+//  return (
+//   <div className="min-h-screen bg-[#0b1120] text-white">
+
+//     {/* TOP NAVBAR */}
+//     <div className="
+//       sticky top-0 z-50
+//       bg-[#0f172a]/90
+//       backdrop-blur-xl
+//       border-b border-white/10
+//     ">
+
+//       <div className="
+//         max-w-7xl mx-auto
+//         px-4 py-4
+//       ">
+
+//         {/* HEADER */}
+//         <div className="
+//           flex flex-col lg:flex-row
+//           lg:items-center lg:justify-between
+//           gap-5
+//         ">
+
+//           <div>
+
+//             <h1 className="
+//               text-2xl font-black
+//               bg-gradient-to-r from-cyan-400 to-blue-500
+//               bg-clip-text text-transparent
+//             ">
+//               Online Examination
+//             </h1>
+
+//             <p className="text-slate-400 text-sm mt-1">
+//               Complete all questions carefully
+//             </p>
+
+//           </div>
+
+//           {/* STATS */}
+//           <div className="flex items-center gap-4">
+
+//             <div className="
+//               bg-white/5
+//               border border-white/10
+//               px-5 py-3
+//               rounded-2xl
+//             ">
+//               <p className="text-xs text-slate-400">
+//                 Total
+//               </p>
+
+//               <h2 className="text-xl font-black text-cyan-400">
+//                 {questions.length}
+//               </h2>
+//             </div>
+
+//             <div className="
+//               bg-white/5
+//               border border-white/10
+//               px-5 py-3
+//               rounded-2xl
+//             ">
+//               <p className="text-xs text-slate-400">
+//                 Answered
+//               </p>
+
+//               <h2 className="text-xl font-black text-emerald-400">
+//                 {answers.length}
+//               </h2>
+//             </div>
+
+//           </div>
+
+//         </div>
+
+//         {/* PROGRESS */}
+//         <div className="mt-5">
+
+//           <div className="
+//             h-3
+//             bg-white/10
+//             rounded-full
+//             overflow-hidden
+//           ">
+
+//             <div
+//               style={{ width: `${progress}%` }}
+//               className="
+//                 h-full
+//                 bg-gradient-to-r
+//                 from-cyan-500 to-blue-600
+//                 rounded-full
+//                 transition-all duration-500
+//               "
+//             ></div>
+
+//           </div>
+
+//           <div className="
+//             flex justify-between
+//             mt-2 text-sm
+//           ">
+
+//             <p className="text-slate-400">
+//               Progress
+//             </p>
+
+//             <p className="text-cyan-400 font-semibold">
+//               {Math.round(progress)}%
+//             </p>
+
+//           </div>
+
+//         </div>
+
+//       </div>
+
+//     </div>
+
+//     {/* MAIN */}
+//     <div className="
+//       max-w-7xl mx-auto
+//       px-4 py-8
+//       grid lg:grid-cols-[1fr_300px]
+//       gap-8
+//     ">
+
+//       {/* QUESTIONS */}
+//       <div className="space-y-5">
+
+//         {questions.map((q, index) => (
+
+//           <div
+//             key={q.id}
+//             className="
+//               bg-white/5
+//               border border-white/10
+//               rounded-3xl
+//               p-6
+//               backdrop-blur-xl
+//             "
+//           >
+
+//             {/* QUESTION */}
+//             <div className="
+//               flex items-start gap-4
+//             ">
+
+//               <div className="
+//                 min-w-[45px] h-[45px]
+//                 rounded-2xl
+//                 bg-gradient-to-br
+//                 from-cyan-500 to-blue-600
+//                 flex items-center justify-center
+//                 font-black
+//                 text-lg
+//               ">
+//                 {index + 1}
+//               </div>
+
+//               <div className="flex-1">
+
+//                 <h2 className="
+//                   text-lg md:text-xl
+//                   font-bold text-white
+//                 ">
+//                   {q.question}
+//                 </h2>
+
+//               </div>
+
+//             </div>
+
+//             {/* OPTIONS */}
+//             <div className="
+//               mt-5
+//               grid gap-3
+//             ">
+
+//               {[
+//                 { key: "A", value: q.option1 },
+//                 { key: "B", value: q.option2 },
+//                 { key: "C", value: q.option3 },
+//                 { key: "D", value: q.option4 }
+//               ].map(opt => {
+
+//                 const isSelected = answers.find(
+//                   a =>
+//                     a.questionId === q.id &&
+//                     a.selectedOption === opt.key
+//                 );
+
+//                 return (
+
+//                   <label
+//                     key={opt.key}
+//                     className={`
+//                       cursor-pointer
+//                       rounded-2xl
+//                       border
+//                       px-5 py-4
+//                       flex items-center gap-4
+//                       transition-all duration-300
+
+//                       ${isSelected
+//                         ? "bg-cyan-500 border-cyan-400"
+//                         : "bg-white/[0.03] border-white/10 hover:border-cyan-400"
+//                       }
+//                     `}
+//                   >
+
+//                     <input
+//                       type="radio"
+//                       name={q.id.toString()}
+//                       checked={!!isSelected}
+//                       onChange={() =>
+//                         handleSelect(q.id, opt.key)
+//                       }
+//                       className="hidden"
+//                     />
+
+//                     <div className={`
+//                       min-w-[38px] h-[38px]
+//                       rounded-xl
+//                       flex items-center justify-center
+//                       font-bold
+
+//                       ${isSelected
+//                         ? "bg-white text-cyan-600"
+//                         : "bg-white/10 text-white"
+//                       }
+//                     `}>
+//                       {opt.key}
+//                     </div>
+
+//                     <p className={`
+//                       font-medium
+
+//                       ${isSelected
+//                         ? "text-white"
+//                         : "text-slate-200"
+//                       }
+//                     `}>
+//                       {opt.value}
+//                     </p>
+
+//                   </label>
+
+//                 );
+//               })}
+
+//             </div>
+
+//           </div>
+
+//         ))}
+
+//         {/* SUBMIT */}
+//         <div className="pt-4">
+
+//           <button
+//             onClick={handleSubmit}
+//             className="
+//               w-full
+//               bg-gradient-to-r
+//               from-emerald-500 to-green-600
+//               hover:from-emerald-600 hover:to-green-700
+//               py-5 rounded-2xl
+//               text-lg font-black
+//               shadow-2xl
+//               transition-all hover:scale-[1.01]
+//             "
+//           >
+//             Submit Examination
+//           </button>
+
+//         </div>
+
+//       </div>
+
+//       {/* SIDE PANEL */}
+//       <div className="
+//         h-fit sticky top-[140px]
+//         bg-white/5
+//         border border-white/10
+//         rounded-3xl
+//         p-6
+//         backdrop-blur-xl
+//       ">
+
+//         <h2 className="
+//           text-xl font-black
+//           text-white
+//         ">
+//           Question Status
+//         </h2>
+
+//         <div className="
+//           grid grid-cols-5
+//           gap-3 mt-6
+//         ">
+
+//           {questions.map((q, i) => {
+
+//             const answered = answers.find(
+//               a => a.questionId === q.id
+//             );
+
+//             return (
+
+//               <div
+//                 key={q.id}
+//                 className={`
+//                   h-12 rounded-xl
+//                   flex items-center justify-center
+//                   font-bold text-sm
+//                   transition-all
+
+//                   ${answered
+//                     ? "bg-cyan-500 text-white"
+//                     : "bg-white/10 text-slate-300"
+//                   }
+//                 `}
+//               >
+//                 {i + 1}
+//               </div>
+
+//             );
+//           })}
+
+//         </div>
+
+//         {/* LEGEND */}
+//         <div className="mt-8 space-y-4">
+
+//           <div className="flex items-center gap-3">
+
+//             <div className="
+//               w-5 h-5 rounded-md
+//               bg-cyan-500
+//             "></div>
+
+//             <p className="text-slate-300 text-sm">
+//               Answered
+//             </p>
+
+//           </div>
+
+//           <div className="flex items-center gap-3">
+
+//             <div className="
+//               w-5 h-5 rounded-md
+//               bg-white/10 border border-white/10
+//             "></div>
+
+//             <p className="text-slate-300 text-sm">
+//               Not Answered
+//             </p>
+
+//           </div>
+
+//         </div>
+
+//       </div>
+
+//     </div>
+
+//   </div>
+// );
+// }
+
+// export default Exam;
+
+
+
+
+
+
+
+
+
+
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// ✅ ADD THIS
 const STUDENT_API = "https://examsystem-3.onrender.com";
 
-// ✅ TYPES
+// ✅ QUESTION TYPE
 type Question = {
   id: number;
   question: string;
@@ -345,6 +810,7 @@ type Question = {
   option4: string;
 };
 
+// ✅ ANSWER TYPE
 type Answer = {
   questionId: number;
   selectedOption: string;
@@ -357,7 +823,15 @@ function Exam() {
 
   const navigate = useNavigate();
 
+  // ✅ PROGRESS
+  const progress =
+    questions.length === 0
+      ? 0
+      : (answers.length / questions.length) * 100;
+
+  // ✅ LOAD QUESTIONS
   useEffect(() => {
+
     const saved = localStorage.getItem("questions");
 
     if (!saved) {
@@ -367,18 +841,28 @@ function Exam() {
     }
 
     setQuestions(JSON.parse(saved));
+
   }, []);
 
+  // ✅ HANDLE SELECT
   const handleSelect = (qId: number, option: string) => {
+
     setAnswers(prev => [
       ...prev.filter(a => a.questionId !== qId),
-      { questionId: qId, selectedOption: option }
+      {
+        questionId: qId,
+        selectedOption: option
+      }
     ]);
+
   };
 
+  // ✅ SUBMIT
   const handleSubmit = async () => {
 
-    const studentData = JSON.parse(localStorage.getItem("studentData") || "null");
+    const studentData = JSON.parse(
+      localStorage.getItem("studentData") || "null"
+    );
 
     if (!studentData) {
       alert("Session expired");
@@ -392,11 +876,14 @@ function Exam() {
     }
 
     try {
-      // ✅ FIXED URL
-      await axios.post(`${STUDENT_API}/student/submit`, {
-        ...studentData,
-        answers
-      });
+
+      await axios.post(
+        `${STUDENT_API}/student/submit`,
+        {
+          ...studentData,
+          answers
+        }
+      );
 
       alert("Submitted Successfully ✅");
 
@@ -406,248 +893,414 @@ function Exam() {
       navigate("/");
 
     } catch (err) {
+
       alert("Error submitting exam");
+
     }
   };
 
   return (
-  <div className="min-h-screen bg-[#0f172a] relative overflow-hidden">
 
-    {/* BACKGROUND EFFECTS */}
-    <div className="absolute top-0 left-0 w-72 h-72 bg-cyan-500/20 blur-[120px] rounded-full"></div>
-    <div className="absolute bottom-0 right-0 w-80 h-80 bg-violet-500/20 blur-[120px] rounded-full"></div>
+    <div className="min-h-screen bg-[#0b1120] text-white">
 
-    {/* TOP BAR */}
-    <div className="
-      sticky top-0 z-50
-      backdrop-blur-xl
-      bg-white/10
-      border-b border-white/10
-    ">
-
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-
-        <div>
-          <h1 className="text-2xl font-black text-white">
-            📝 Online Examination
-          </h1>
-
-          <p className="text-slate-300 text-sm mt-1">
-            Complete all questions carefully
-          </p>
-        </div>
+      {/* TOP NAVBAR */}
+      <div className="
+        sticky top-0 z-50
+        bg-[#0f172a]/90
+        backdrop-blur-xl
+        border-b border-white/10
+      ">
 
         <div className="
-          bg-white/10
-          border border-white/10
-          px-5 py-3
-          rounded-2xl
-          text-white
-          shadow-lg
+          max-w-7xl mx-auto
+          px-4 py-4
         ">
-          <p className="text-sm text-slate-300">
-            Total Questions
-          </p>
 
-          <h2 className="text-2xl font-bold">
-            {questions.length}
-          </h2>
-        </div>
-
-      </div>
-    </div>
-
-    {/* QUESTIONS */}
-    <div className="max-w-5xl mx-auto px-4 py-10 relative z-10">
-
-      {questions.map((q, index) => (
-
-        <div
-          key={q.id}
-          className="
-            mb-8
-            bg-white/10
-            backdrop-blur-xl
-            border border-white/10
-            rounded-[28px]
-            shadow-2xl
-            overflow-hidden
-          "
-        >
-
-          {/* QUESTION HEADER */}
+          {/* HEADER */}
           <div className="
-            bg-gradient-to-r from-cyan-500/20 to-blue-600/20
-            border-b border-white/10
-            px-6 py-5
+            flex flex-col lg:flex-row
+            lg:items-center lg:justify-between
+            gap-5
           ">
 
+            <div>
+
+              <h1 className="
+                text-2xl font-black
+                bg-gradient-to-r
+                from-cyan-400 to-blue-500
+                bg-clip-text text-transparent
+              ">
+                Online Examination
+              </h1>
+
+              <p className="text-slate-400 text-sm mt-1">
+                Complete all questions carefully
+              </p>
+
+            </div>
+
+            {/* STATS */}
             <div className="flex items-center gap-4">
 
+              {/* TOTAL */}
               <div className="
-                w-12 h-12
+                bg-white/5
+                border border-white/10
+                px-5 py-3
                 rounded-2xl
-                bg-gradient-to-br from-cyan-500 to-blue-600
-                flex items-center justify-center
-                text-white
-                font-black
-                shadow-lg
               ">
-                {index + 1}
-              </div>
 
-              <div>
-                <p className="text-sm text-cyan-200 font-semibold">
-                  QUESTION {index + 1}
+                <p className="text-xs text-slate-400">
+                  Total
                 </p>
 
-                <h2 className="text-xl md:text-2xl font-bold text-white mt-1">
-                  {q.question}
+                <h2 className="
+                  text-xl font-black
+                  text-cyan-400
+                ">
+                  {questions.length}
                 </h2>
+
+              </div>
+
+              {/* ANSWERED */}
+              <div className="
+                bg-white/5
+                border border-white/10
+                px-5 py-3
+                rounded-2xl
+              ">
+
+                <p className="text-xs text-slate-400">
+                  Answered
+                </p>
+
+                <h2 className="
+                  text-xl font-black
+                  text-emerald-400
+                ">
+                  {answers.length}
+                </h2>
+
               </div>
 
             </div>
+
           </div>
 
-          {/* OPTIONS */}
-          <div className="p-6 grid gap-4">
+          {/* PROGRESS */}
+          <div className="mt-5">
 
-            {[
-              { key: "A", value: q.option1 },
-              { key: "B", value: q.option2 },
-              { key: "C", value: q.option3 },
-              { key: "D", value: q.option4 }
-            ].map(opt => {
+            <div className="
+              h-3
+              bg-white/10
+              rounded-full
+              overflow-hidden
+            ">
 
-              const isSelected = answers.find(
-                a =>
-                  a.questionId === q.id &&
-                  a.selectedOption === opt.key
+              <div
+                style={{ width: `${progress}%` }}
+                className="
+                  h-full
+                  bg-gradient-to-r
+                  from-cyan-500 to-blue-600
+                  rounded-full
+                  transition-all duration-500
+                "
+              ></div>
+
+            </div>
+
+            <div className="
+              flex justify-between
+              mt-2 text-sm
+            ">
+
+              <p className="text-slate-400">
+                Progress
+              </p>
+
+              <p className="
+                text-cyan-400 font-semibold
+              ">
+                {Math.round(progress)}%
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="
+        max-w-7xl mx-auto
+        px-4 py-8
+        grid lg:grid-cols-[1fr_300px]
+        gap-8
+      ">
+
+        {/* QUESTIONS */}
+        <div className="space-y-5">
+
+          {questions.map((q, index) => (
+
+            <div
+              key={q.id}
+              className="
+                bg-white/5
+                border border-white/10
+                rounded-3xl
+                p-6
+                backdrop-blur-xl
+              "
+            >
+
+              {/* QUESTION */}
+              <div className="
+                flex items-start gap-4
+              ">
+
+                <div className="
+                  min-w-[45px]
+                  h-[45px]
+                  rounded-2xl
+                  bg-gradient-to-br
+                  from-cyan-500 to-blue-600
+                  flex items-center justify-center
+                  font-black text-lg
+                ">
+                  {index + 1}
+                </div>
+
+                <div className="flex-1">
+
+                  <h2 className="
+                    text-lg md:text-xl
+                    font-bold text-white
+                  ">
+                    {q.question}
+                  </h2>
+
+                </div>
+
+              </div>
+
+              {/* OPTIONS */}
+              <div className="
+                mt-5
+                grid gap-3
+              ">
+
+                {[
+                  { key: "A", value: q.option1 },
+                  { key: "B", value: q.option2 },
+                  { key: "C", value: q.option3 },
+                  { key: "D", value: q.option4 }
+                ].map(opt => {
+
+                  const isSelected = answers.find(
+                    a =>
+                      a.questionId === q.id &&
+                      a.selectedOption === opt.key
+                  );
+
+                  return (
+
+                    <label
+                      key={opt.key}
+                      className={`
+                        cursor-pointer
+                        rounded-2xl
+                        border
+                        px-5 py-4
+                        flex items-center gap-4
+                        transition-all duration-300
+
+                        ${isSelected
+                          ? "bg-cyan-500 border-cyan-400"
+                          : "bg-white/[0.03] border-white/10 hover:border-cyan-400"
+                        }
+                      `}
+                    >
+
+                      <input
+                        type="radio"
+                        name={q.id.toString()}
+                        checked={!!isSelected}
+                        onChange={() =>
+                          handleSelect(q.id, opt.key)
+                        }
+                        className="hidden"
+                      />
+
+                      {/* OPTION LETTER */}
+                      <div className={`
+                        min-w-[38px]
+                        h-[38px]
+                        rounded-xl
+                        flex items-center justify-center
+                        font-bold
+
+                        ${isSelected
+                          ? "bg-white text-cyan-600"
+                          : "bg-white/10 text-white"
+                        }
+                      `}>
+                        {opt.key}
+                      </div>
+
+                      {/* OPTION TEXT */}
+                      <p className={`
+                        font-medium
+
+                        ${isSelected
+                          ? "text-white"
+                          : "text-slate-200"
+                        }
+                      `}>
+                        {opt.value}
+                      </p>
+
+                    </label>
+
+                  );
+                })}
+
+              </div>
+
+            </div>
+
+          ))}
+
+          {/* SUBMIT */}
+          <div className="pt-4">
+
+            <button
+              onClick={handleSubmit}
+              className="
+                w-full
+                bg-gradient-to-r
+                from-emerald-500 to-green-600
+                hover:from-emerald-600 hover:to-green-700
+                py-5 rounded-2xl
+                text-lg font-black
+                shadow-2xl
+                transition-all hover:scale-[1.01]
+              "
+            >
+              Submit Examination
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* SIDE PANEL */}
+        <div className="
+          h-fit sticky top-[140px]
+          bg-white/5
+          border border-white/10
+          rounded-3xl
+          p-6
+          backdrop-blur-xl
+        ">
+
+          <h2 className="
+            text-xl font-black
+            text-white
+          ">
+            Question Status
+          </h2>
+
+          {/* QUESTION NUMBERS */}
+          <div className="
+            grid grid-cols-5
+            gap-3 mt-6
+          ">
+
+            {questions.map((q, i) => {
+
+              const answered = answers.find(
+                a => a.questionId === q.id
               );
 
               return (
 
-                <label
-                  key={opt.key}
+                <div
+                  key={q.id}
                   className={`
-                    group cursor-pointer
-                    border rounded-2xl
-                    p-5
-                    transition-all duration-300
-                    flex items-center gap-4
+                    h-12 rounded-xl
+                    flex items-center justify-center
+                    font-bold text-sm
 
-                    ${isSelected
-                      ? "bg-cyan-500 border-cyan-400 shadow-xl scale-[1.01]"
-                      : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-400"
+                    ${answered
+                      ? "bg-cyan-500 text-white"
+                      : "bg-white/10 text-slate-300"
                     }
                   `}
                 >
+                  {i + 1}
+                </div>
 
-                  <input
-                    type="radio"
-                    name={q.id.toString()}
-                    checked={!!isSelected}
-                    onChange={() => handleSelect(q.id, opt.key)}
-                    className="hidden"
-                  />
-
-                  {/* OPTION LETTER */}
-                  <div className={`
-                    min-w-[50px] h-[50px]
-                    rounded-2xl
-                    flex items-center justify-center
-                    font-black text-lg
-                    transition-all
-
-                    ${isSelected
-                      ? "bg-white text-cyan-600"
-                      : "bg-white/10 text-white group-hover:bg-cyan-500"
-                    }
-                  `}>
-                    {opt.key}
-                  </div>
-
-                  {/* OPTION TEXT */}
-                  <div className="flex-1">
-
-                    <p className={`
-                      text-lg font-semibold transition-all
-
-                      ${isSelected
-                        ? "text-white"
-                        : "text-slate-200"
-                      }
-                    `}>
-                      {opt.value}
-                    </p>
-
-                  </div>
-
-                  {/* SELECTED ICON */}
-                  {isSelected && (
-                    <div className="
-                      w-6 h-6 rounded-full
-                      bg-white
-                      flex items-center justify-center
-                    ">
-                      <div className="w-3 h-3 bg-cyan-500 rounded-full"></div>
-                    </div>
-                  )}
-
-                </label>
               );
             })}
 
           </div>
 
+          {/* LEGEND */}
+          <div className="mt-8 space-y-4">
+
+            <div className="
+              flex items-center gap-3
+            ">
+
+              <div className="
+                w-5 h-5 rounded-md
+                bg-cyan-500
+              "></div>
+
+              <p className="
+                text-slate-300 text-sm
+              ">
+                Answered
+              </p>
+
+            </div>
+
+            <div className="
+              flex items-center gap-3
+            ">
+
+              <div className="
+                w-5 h-5 rounded-md
+                bg-white/10
+                border border-white/10
+              "></div>
+
+              <p className="
+                text-slate-300 text-sm
+              ">
+                Not Answered
+              </p>
+
+            </div>
+
+          </div>
+
         </div>
-      ))}
-
-      {/* SUBMIT BUTTON */}
-      <div className="text-center mt-12">
-
-        <button
-          onClick={handleSubmit}
-          className="
-            relative overflow-hidden
-            bg-gradient-to-r from-emerald-500 to-green-600
-            hover:from-emerald-600 hover:to-green-700
-            text-white
-            px-12 py-5
-            rounded-2xl
-            text-xl
-            font-bold
-            shadow-2xl
-            hover:scale-[1.03]
-            transition-all duration-300
-          "
-        >
-          Submit Examination 🚀
-        </button>
-
-        <p className="text-slate-400 text-sm mt-4">
-          Ensure all answers are selected before submitting.
-        </p>
 
       </div>
 
     </div>
-  </div>
-);
+
+  );
 }
 
 export default Exam;
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -832,246 +832,552 @@ function AdminDashboard() {
     window.location.href = "/admin-login";
   };
 
-  return (
-    <div className="min-h-screen flex bg-slate-100">
+return (
+  <div className="min-h-screen bg-[#0b1120] flex relative overflow-hidden">
 
-      {/* MOBILE TOPBAR */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-50 p-4 flex items-center justify-between">
-        <h1 className="font-bold text-xl text-slate-800">
-          Admin Panel
+    {/* BACKGROUND EFFECTS */}
+    <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-cyan-500/20 blur-[140px] rounded-full"></div>
+
+    <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-violet-500/20 blur-[140px] rounded-full"></div>
+
+    {/* MOBILE TOPBAR */}
+    <div className="
+      lg:hidden fixed top-0 left-0 right-0
+      bg-[#0f172a]/90 backdrop-blur-xl
+      border-b border-white/10
+      z-50 p-4
+      flex items-center justify-between
+    ">
+
+      <h1 className="
+        text-2xl font-black
+        bg-gradient-to-r from-cyan-400 to-blue-500
+        bg-clip-text text-transparent
+      ">
+        Admin Panel
+      </h1>
+
+      <button onClick={() => setMobileMenu(!mobileMenu)}>
+        <Menu className="text-white" />
+      </button>
+
+    </div>
+
+    {/* SIDEBAR */}
+    <aside className={`
+      fixed top-0 left-0 z-50
+      h-screen w-[290px]
+      bg-white/10
+      backdrop-blur-2xl
+      border-r border-white/10
+      p-6 transition-all duration-300
+      flex flex-col
+      ${mobileMenu ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+    `}>
+
+      {/* LOGO */}
+      <div>
+
+        <h1 className="
+          text-4xl font-black
+          bg-gradient-to-r from-cyan-400 to-blue-500
+          bg-clip-text text-transparent
+        ">
+          Admin
         </h1>
 
-        <button onClick={() => setMobileMenu(!mobileMenu)}>
-          <Menu className="text-slate-700" />
-        </button>
+        <p className="text-slate-400 mt-2 text-sm">
+          Online Examination System
+        </p>
+
       </div>
 
-      {/* SIDEBAR */}
-      <aside className={`
-        fixed lg:static z-40 top-0 left-0 h-full
-        w-72 bg-gradient-to-b from-slate-900 to-slate-800
-        text-white p-6 transition-all duration-300
-        ${mobileMenu ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-      `}>
+      {/* MENU */}
+      <div className="mt-10 space-y-4">
 
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold tracking-wide">
-            Admin Panel
-          </h1>
+        <button
+          onClick={() => {
+            setMode("add");
+            setMobileMenu(false);
+          }}
+          className="
+            w-full flex items-center gap-3
+            bg-gradient-to-r from-cyan-500 to-blue-600
+            hover:from-cyan-600 hover:to-blue-700
+            px-5 py-4 rounded-2xl
+            text-white font-semibold
+            shadow-2xl shadow-cyan-500/20
+            transition-all hover:scale-[1.02]
+          "
+        >
+          <PlusCircle size={20} />
+          Add Question
+        </button>
 
-          <p className="text-slate-400 text-sm mt-2">
-            Online Exam Management
-          </p>
-        </div>
+        <button
+          onClick={() => {
+            setMode("view");
+            setMobileMenu(false);
+          }}
+          className="
+            w-full flex items-center gap-3
+            bg-gradient-to-r from-emerald-500 to-green-600
+            hover:from-emerald-600 hover:to-green-700
+            px-5 py-4 rounded-2xl
+            text-white font-semibold
+            shadow-2xl shadow-emerald-500/20
+            transition-all hover:scale-[1.02]
+          "
+        >
+          <Eye size={20} />
+          View Questions
+        </button>
 
-        <div className="space-y-4">
+        <button
+          onClick={() => {
+            setMode("dash");
+            setMobileMenu(false);
+          }}
+          className="
+            w-full flex items-center gap-3
+            bg-gradient-to-r from-violet-500 to-purple-600
+            hover:from-violet-600 hover:to-purple-700
+            px-5 py-4 rounded-2xl
+            text-white font-semibold
+            shadow-2xl shadow-violet-500/20
+            transition-all hover:scale-[1.02]
+          "
+        >
+          <LayoutDashboard size={20} />
+          Dashboard
+        </button>
 
-          <button
-            onClick={() => {
-              setMode("add");
-              setMobileMenu(false);
-            }}
-            className="w-full flex items-center gap-3 bg-blue-600 hover:bg-blue-700 transition-all px-4 py-3 rounded-xl shadow-lg"
-          >
-            <PlusCircle size={20} />
-            Add Question
-          </button>
+      </div>
 
-          <button
-            onClick={() => {
-              setMode("view");
-              setMobileMenu(false);
-            }}
-            className="w-full flex items-center gap-3 bg-emerald-600 hover:bg-emerald-700 transition-all px-4 py-3 rounded-xl shadow-lg"
-          >
-            <Eye size={20} />
-            View Questions
-          </button>
+      {/* LOGOUT */}
+      <div className="mt-auto">
 
-          <button
-            onClick={() => {
-              setMode("dash");
-              setMobileMenu(false);
-            }}
-            className="w-full flex items-center gap-3 bg-violet-600 hover:bg-violet-700 transition-all px-4 py-3 rounded-xl shadow-lg"
-          >
-            <LayoutDashboard size={20} />
-            Dashboard
-          </button>
+        <button
+          onClick={logout}
+          className="
+            w-full flex items-center justify-center gap-3
+            bg-gradient-to-r from-red-500 to-rose-600
+            hover:from-red-600 hover:to-rose-700
+            px-5 py-4 rounded-2xl
+            text-white font-semibold
+            shadow-2xl shadow-red-500/20
+            transition-all hover:scale-[1.02]
+          "
+        >
+          <LogOut size={20} />
+          Logout
+        </button>
 
-          <button
-            onClick={logout}
-            className="w-full flex items-center gap-3 bg-red-600 hover:bg-red-700 transition-all px-4 py-3 rounded-xl shadow-lg"
-          >
-            <LogOut size={20} />
-            Logout
-          </button>
+      </div>
 
-        </div>
-      </aside>
+    </aside>
 
-      {/* MAIN CONTENT */}
-      <main className="flex-1 p-4 lg:p-8 mt-20 lg:mt-0">
+    {/* MAIN CONTENT */}
+    <main className="
+      flex-1 lg:ml-[290px]
+      p-4 md:p-8 lg:p-10
+      mt-20 lg:mt-0
+      relative z-10
+    ">
 
-        {/* ADD QUESTION */}
-        {mode === "add" && (
-          <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-8">
+      {/* ADD QUESTION */}
+      {mode === "add" && (
+        <div className="
+          max-w-4xl mx-auto
+          bg-white/10
+          backdrop-blur-2xl
+          border border-white/10
+          rounded-[32px]
+          p-8 md:p-10
+          shadow-[0_8px_32px_rgba(0,0,0,0.37)]
+        ">
 
-            <h2 className="text-3xl font-bold text-slate-800 mb-8">
-              {editId ? "Update Question" : "Add New Question"}
+          <div className="mb-8">
+
+            <p className="
+              text-cyan-400 uppercase
+              tracking-[4px]
+              text-sm font-semibold
+            ">
+              Question Management
+            </p>
+
+            <h2 className="
+              text-3xl md:text-4xl
+              font-black text-white mt-2
+            ">
+              {editId ? "Update Question" : "Add Question"}
             </h2>
 
-            <div className="grid gap-5">
-
-              {Object.keys(form).map((key) => (
-                <input
-                  key={key}
-                  type="text"
-                  placeholder={key}
-                  value={form[key as keyof typeof form]}
-                  onChange={(e) =>
-                    setForm({ ...form, [key]: e.target.value })
-                  }
-                  className="w-full border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all p-4 rounded-xl"
-                />
-              ))}
-
-              <button
-                onClick={handleSubmit}
-                className="bg-blue-600 hover:bg-blue-700 transition-all text-white py-4 rounded-xl text-lg font-semibold shadow-lg"
-              >
-                {editId ? "Update Question" : "Add Question"}
-              </button>
-
-            </div>
           </div>
-        )}
 
-        {/* VIEW QUESTIONS */}
-        {mode === "view" && (
-          <div className="grid gap-6">
+          <div className="grid gap-5">
 
-            {questions.map((q) => (
-              <div
-                key={q.id}
-                className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all"
-              >
-
-                <h3 className="text-xl font-semibold text-slate-800">
-                  {q.question}
-                </h3>
-
-                <div className="grid md:grid-cols-2 gap-3 mt-5 text-slate-600">
-
-                  <div className="bg-slate-100 p-3 rounded-lg">
-                    A. {q.option1}
-                  </div>
-
-                  <div className="bg-slate-100 p-3 rounded-lg">
-                    B. {q.option2}
-                  </div>
-
-                  <div className="bg-slate-100 p-3 rounded-lg">
-                    C. {q.option3}
-                  </div>
-
-                  <div className="bg-slate-100 p-3 rounded-lg">
-                    D. {q.option4}
-                  </div>
-
-                </div>
-
-                <div className="flex gap-4 mt-6">
-
-                  <button
-                    onClick={() => handleEdit(q)}
-                    className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2 rounded-lg"
-                  >
-                    <Pencil size={16} />
-                    Edit
-                  </button>
-
-                  <button
-                    onClick={() => handleDelete(q.id)}
-                    className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
-                  >
-                    <Trash2 size={16} />
-                    Delete
-                  </button>
-
-                </div>
-              </div>
+            {Object.keys(form).map((key) => (
+              <input
+                key={key}
+                type="text"
+                placeholder={`Enter ${key}`}
+                value={form[key as keyof typeof form]}
+                onChange={(e) =>
+                  setForm({ ...form, [key]: e.target.value })
+                }
+                className="
+                  w-full
+                  bg-white/5
+                  border border-white/10
+                  text-white
+                  placeholder:text-slate-400
+                  focus:border-cyan-400
+                  focus:ring-4 focus:ring-cyan-500/20
+                  outline-none
+                  transition-all
+                  p-4 rounded-2xl
+                "
+              />
             ))}
 
+            <button
+              onClick={handleSubmit}
+              className="
+                mt-2
+                bg-gradient-to-r from-cyan-500 to-blue-600
+                hover:from-cyan-600 hover:to-blue-700
+                text-white py-4
+                rounded-2xl
+                text-lg font-bold
+                shadow-2xl shadow-cyan-500/20
+                transition-all hover:scale-[1.02]
+              "
+            >
+              {editId ? "Update Question" : "Add Question"}
+            </button>
+
           </div>
-        )}
 
-        {/* DASHBOARD */}
-        {mode === "dash" && (
-          <div>
+        </div>
+      )}
 
-            <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
+      {/* VIEW QUESTIONS */}
+      {mode === "view" && (
+        <div className="grid gap-6">
 
-              <h2 className="text-3xl font-bold text-slate-800">
+          {questions.map((q) => (
+            <div
+              key={q.id}
+              className="
+                bg-white/10
+                backdrop-blur-2xl
+                border border-white/10
+                rounded-[28px]
+                p-6
+                shadow-2xl
+              "
+            >
+
+              <h3 className="
+                text-2xl font-bold
+                text-white
+              ">
+                {q.question}
+              </h3>
+
+              <div className="
+                grid md:grid-cols-2
+                gap-4 mt-6
+              ">
+
+                {[q.option1, q.option2, q.option3, q.option4]
+                  .map((opt, i) => (
+
+                  <div
+                    key={i}
+                    className="
+                      bg-white/5
+                      border border-white/10
+                      p-4 rounded-2xl
+                      text-slate-200
+                    "
+                  >
+                    {String.fromCharCode(65 + i)}. {opt}
+                  </div>
+
+                ))}
+
+              </div>
+
+              <div className="flex gap-4 mt-6">
+
+                <button
+                  onClick={() => handleEdit(q)}
+                  className="
+                    flex items-center gap-2
+                    bg-emerald-500 hover:bg-emerald-600
+                    px-5 py-3 rounded-2xl
+                    text-white font-semibold
+                  "
+                >
+                  <Pencil size={18} />
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => handleDelete(q.id)}
+                  className="
+                    flex items-center gap-2
+                    bg-red-500 hover:bg-red-600
+                    px-5 py-3 rounded-2xl
+                    text-white font-semibold
+                  "
+                >
+                  <Trash2 size={18} />
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+      )}
+
+      {/* DASHBOARD */}
+      {mode === "dash" && (
+
+        <div>
+
+          {/* HEADER */}
+          <div className="
+            flex flex-col md:flex-row
+            md:items-center md:justify-between
+            gap-5 mb-10
+          ">
+
+            <div>
+
+              <p className="
+                text-cyan-400
+                uppercase tracking-[4px]
+                text-sm font-semibold
+              ">
+                Analytics Overview
+              </p>
+
+              <h2 className="
+                text-4xl font-black
+                text-white mt-2
+              ">
                 Student Dashboard
               </h2>
 
-              <button
-                onClick={() =>
-                  window.open(`${STUDENT_API}/student/download`)
-                }
-                className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 transition-all text-white px-5 py-3 rounded-xl shadow-lg"
-              >
-                <Download size={18} />
-                Download CSV
-              </button>
-
             </div>
 
-            <div className="grid gap-5">
+            <button
+              onClick={() =>
+                window.open(`${STUDENT_API}/student/download`)
+              }
+              className="
+                flex items-center gap-3
+                bg-gradient-to-r from-amber-500 to-orange-600
+                hover:from-amber-600 hover:to-orange-700
+                text-white px-6 py-4
+                rounded-2xl
+                shadow-2xl
+                font-semibold
+              "
+            >
+              <Download size={20} />
+              Download CSV
+            </button>
 
-              {students.map((s, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl shadow-lg p-6 border border-slate-100"
-                >
+          </div>
 
-                  <div className="flex flex-col md:flex-row md:justify-between gap-3">
+          {/* GROUPED STUDENTS */}
+          <div className="grid gap-8">
 
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-800">
-                        {s.name}
-                      </h3>
+            {Object.values(
 
-                      <p className="text-slate-500">
-                        {s.email}
-                      </p>
+              students.reduce((acc: any, item: any) => {
+
+                if (!acc[item.email]) {
+
+                  acc[item.email] = {
+                    name: item.name,
+                    email: item.email,
+                    answers: []
+                  };
+
+                }
+
+                acc[item.email].answers.push({
+                  questionId: item.questionId,
+                  selectedOption: item.selectedOption
+                });
+
+                return acc;
+
+              }, {})
+
+            ).map((student: any, index) => (
+
+              <div
+                key={index}
+                className="
+                  bg-white/10
+                  backdrop-blur-2xl
+                  border border-white/10
+                  rounded-[32px]
+                  overflow-hidden
+                  shadow-[0_8px_32px_rgba(0,0,0,0.37)]
+                "
+              >
+
+                {/* TOP */}
+                <div className="
+                  p-8 border-b border-white/10
+                  bg-gradient-to-r
+                  from-cyan-500/10
+                  to-blue-500/10
+                ">
+
+                  <div className="
+                    flex flex-col lg:flex-row
+                    lg:items-center lg:justify-between
+                    gap-6
+                  ">
+
+                    <div className="flex items-center gap-5">
+
+                      <div className="
+                        w-16 h-16 rounded-2xl
+                        bg-gradient-to-br
+                        from-cyan-500 to-blue-600
+                        flex items-center justify-center
+                        text-white text-2xl font-black
+                      ">
+                        {student.name.charAt(0)}
+                      </div>
+
+                      <div>
+
+                        <h3 className="
+                          text-2xl font-black text-white
+                        ">
+                          {student.name}
+                        </h3>
+
+                        <p className="text-slate-300 mt-1">
+                          {student.email}
+                        </p>
+
+                      </div>
+
                     </div>
 
-                    <div className="flex gap-4 flex-wrap">
+                    <div className="
+                      bg-white/10
+                      border border-white/10
+                      px-6 py-5 rounded-2xl
+                    ">
 
-                      <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg">
-                        QID: {s.questionId}
-                      </div>
+                      <p className="
+                        text-slate-400 text-sm
+                      ">
+                        Total Answers
+                      </p>
 
-                      <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg">
-                        Answer: {s.selectedOption}
-                      </div>
+                      <h2 className="
+                        text-4xl font-black
+                        text-cyan-400 mt-1
+                      ">
+                        {student.answers.length}
+                      </h2>
 
                     </div>
 
                   </div>
 
                 </div>
-              ))}
 
-            </div>
+                {/* ANSWERS */}
+                <div className="p-8">
+
+                  <h4 className="
+                    text-xl font-bold
+                    text-white mb-6
+                  ">
+                    Submitted Answers
+                  </h4>
+
+                  <div className="
+                    grid grid-cols-2
+                    md:grid-cols-3
+                    lg:grid-cols-5
+                    gap-5
+                  ">
+
+                    {student.answers.map((ans: any, i: number) => (
+
+                      <div
+                        key={i}
+                        className="
+                          bg-white/5
+                          border border-white/10
+                          rounded-2xl
+                          p-5 text-center
+                        "
+                      >
+
+                        <p className="
+                          text-slate-400 text-sm
+                        ">
+                          Question
+                        </p>
+
+                        <h2 className="
+                          text-4xl font-black
+                          text-cyan-400 mt-2
+                        ">
+                          {ans.questionId}
+                        </h2>
+
+                        <div className="
+                          mt-5
+                          bg-gradient-to-r
+                          from-emerald-500 to-green-600
+                          py-3 rounded-xl
+                          text-white font-black
+                          text-xl
+                        ">
+                          {ans.selectedOption}
+                        </div>
+
+                      </div>
+
+                    ))}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
           </div>
-        )}
 
-      </main>
-    </div>
-  );
+        </div>
+      )}
+
+    </main>
+  </div>
+);
 }
 
 export default AdminDashboard;
