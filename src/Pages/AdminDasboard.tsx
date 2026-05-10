@@ -1150,8 +1150,9 @@ return (
 
 
       {/* VIEW QUESTIONS */}
+{/* VIEW QUESTIONS */}
 {mode === "view" && (
-  <div className="grid gap-7">
+  <div className="grid gap-6">
 
     {questions.map((q, index) => (
 
@@ -1162,40 +1163,37 @@ return (
           bg-white/10
           backdrop-blur-2xl
           border border-white/10
-          rounded-[32px]
-          p-7 md:p-8
+          rounded-[28px]
+          p-6
           shadow-[0_8px_32px_rgba(0,0,0,0.37)]
           overflow-hidden
         "
       >
 
-        {/* TOP GLOW */}
+        {/* TOP LINE */}
         <div className="
           absolute top-0 left-0
-          w-full h-[4px]
+          w-full h-[3px]
           bg-gradient-to-r
           from-cyan-400 via-blue-500 to-violet-500
         "></div>
 
         {/* QUESTION HEADER */}
-        <div className="flex items-start gap-5">
+        <div className="flex items-start gap-4">
 
-          {/* QUESTION NUMBER */}
+          {/* SMALL QUESTION NUMBER */}
           <div className="
-            min-w-[75px]
-            h-[75px]
-            rounded-3xl
+            min-w-[55px]
+            h-[55px]
+            rounded-2xl
             bg-gradient-to-br
             from-cyan-500 to-blue-600
             flex items-center justify-center
-            shadow-2xl shadow-cyan-500/30
-            border border-white/20
+            shadow-xl shadow-cyan-500/20
           ">
 
             <span className="
-              text-3xl
-              font-black
-              text-white
+              text-xl font-black text-white
             ">
               {index + 1}
             </span>
@@ -1208,17 +1206,17 @@ return (
             <p className="
               text-cyan-400
               uppercase
-              tracking-[4px]
+              tracking-[3px]
               text-xs
               font-semibold
-              mb-2
+              mb-1
             ">
               Question {index + 1}
             </p>
 
             <h2 className="
-              text-2xl md:text-3xl
-              font-black
+              text-xl md:text-2xl
+              font-bold
               text-white
               leading-relaxed
             ">
@@ -1232,7 +1230,7 @@ return (
         {/* OPTIONS */}
         <div className="
           grid md:grid-cols-2
-          gap-5 mt-8
+          gap-4 mt-7
         ">
 
           {[
@@ -1246,30 +1244,29 @@ return (
               key={i}
               className="
                 group
-                relative
                 bg-white/5
                 border border-white/10
                 hover:border-cyan-400/40
                 rounded-2xl
-                p-5
+                p-4
                 transition-all duration-300
-                hover:scale-[1.02]
                 hover:bg-white/10
               "
             >
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
 
-                {/* OPTION LABEL */}
+                {/* OPTION LETTER */}
                 <div className="
-                  w-12 h-12
-                  rounded-2xl
+                  w-10 h-10
+                  rounded-xl
                   bg-gradient-to-br
                   from-slate-700 to-slate-800
                   group-hover:from-cyan-500
                   group-hover:to-blue-600
                   flex items-center justify-center
-                  text-white font-black text-lg
+                  text-white
+                  font-bold
                   transition-all duration-300
                 ">
                   {String.fromCharCode(65 + i)}
@@ -1278,7 +1275,6 @@ return (
                 {/* OPTION TEXT */}
                 <p className="
                   text-slate-200
-                  text-lg
                   font-medium
                   break-words
                 ">
@@ -1296,45 +1292,43 @@ return (
         {/* ACTION BUTTONS */}
         <div className="
           flex flex-wrap gap-4
-          mt-8
+          mt-7
         ">
 
           <button
             onClick={() => handleEdit(q)}
             className="
-              flex items-center gap-3
+              flex items-center gap-2
               bg-gradient-to-r
               from-emerald-500 to-green-600
               hover:from-emerald-600 hover:to-green-700
-              px-6 py-4
+              px-5 py-3
               rounded-2xl
-              text-white font-bold
+              text-white font-semibold
               shadow-xl shadow-emerald-500/20
-              transition-all duration-300
-              hover:scale-[1.03]
+              transition-all hover:scale-[1.03]
             "
           >
-            <Pencil size={20} />
-            Edit Question
+            <Pencil size={18} />
+            Edit
           </button>
 
           <button
             onClick={() => handleDelete(q.id)}
             className="
-              flex items-center gap-3
+              flex items-center gap-2
               bg-gradient-to-r
               from-red-500 to-rose-600
               hover:from-red-600 hover:to-rose-700
-              px-6 py-4
+              px-5 py-3
               rounded-2xl
-              text-white font-bold
+              text-white font-semibold
               shadow-xl shadow-red-500/20
-              transition-all duration-300
-              hover:scale-[1.03]
+              transition-all hover:scale-[1.03]
             "
           >
-            <Trash2 size={20} />
-            Delete Question
+            <Trash2 size={18} />
+            Delete
           </button>
 
         </div>
@@ -1345,7 +1339,6 @@ return (
 
   </div>
 )}
-
       {/* DASHBOARD */}
       {mode === "dash" && (
 
