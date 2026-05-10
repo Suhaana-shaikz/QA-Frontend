@@ -2332,7 +2332,7 @@ function AdminDashboard() {
 
            {/* QUESTION ANALYTICS */}
 <div className="
-  mt-16
+  mt-16 mb-16
   bg-white/10
   border border-white/10
   rounded-[32px]
