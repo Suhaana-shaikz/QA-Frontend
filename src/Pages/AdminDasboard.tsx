@@ -1590,6 +1590,14 @@ import {
   Trash2,
   Menu
 } from "lucide-react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend
+} from "recharts";
 
 const STUDENT_API = "https://examsystem-3.onrender.com";
 const QUESTION_API = "https://examsystem-4.onrender.com";
@@ -1676,6 +1684,41 @@ function AdminDashboard() {
       console.error(error);
     }
   };
+
+  const getQuestionAnalytics = (questionId: number) => {
+
+  const filtered = students.filter(
+    (s) => s.questionId === questionId
+  );
+
+  const counts = {
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0
+  };
+
+  filtered.forEach((s) => {
+
+    if (
+      s.selectedOption === "A" ||
+      s.selectedOption === "B" ||
+      s.selectedOption === "C" ||
+      s.selectedOption === "D"
+    ) {
+
+      counts[s.selectedOption as keyof typeof counts]++;
+    }
+
+  });
+
+  return [
+    { name: "A", value: counts.A },
+    { name: "B", value: counts.B },
+    { name: "C", value: counts.C },
+    { name: "D", value: counts.D }
+  ].filter((item) => item.value > 0);
+};
 
   useEffect(() => {
 
@@ -2085,13 +2128,13 @@ function AdminDashboard() {
                 ">
 
              {[
-  q.option1,
-  q.option2,
-  q.option3,
-  q.option4
-]
-.filter((opt) => opt.trim() !== "")
-.map((opt, i) => (
+                q.option1,
+                q.option2,
+                q.option3,
+                q.option4
+              ]
+              .filter((opt) => opt.trim() !== "")
+              .map((opt, i) => (
 
                     <div
                       key={i}
@@ -2466,6 +2509,83 @@ function AdminDashboard() {
           ))}
 
         </div>
+
+      </div>
+
+    </div>
+
+  ))}
+
+</div>
+
+
+<div className="grid md:grid-cols-2 gap-8 mt-10">
+
+  {questions.map((q, index) => (
+
+    <div
+      key={q.id}
+      className="
+        bg-white/10
+        border border-white/10
+        rounded-3xl
+        p-6
+        backdrop-blur-2xl
+      "
+    >
+
+      <h2 className="
+        text-xl font-bold
+        text-white mb-6
+      ">
+        Question {index + 1}
+      </h2>
+
+      <p className="
+        text-slate-300 mb-6
+      ">
+        {q.question}
+      </p>
+
+      <div className="h-[300px]">
+
+        <ResponsiveContainer width="100%" height="100%">
+
+          <PieChart>
+
+            <Pie
+              data={getQuestionAnalytics(q.id)}
+              dataKey="value"
+              nameKey="name"
+              outerRadius={100}
+              label
+            >
+
+              {getQuestionAnalytics(q.id).map((_, i) => (
+
+                <Cell
+                  key={i}
+                  fill={
+                    [
+                      "#06b6d4",
+                      "#10b981",
+                      "#f59e0b",
+                      "#ef4444"
+                    ][i % 4]
+                  }
+                />
+
+              ))}
+
+            </Pie>
+
+            <Tooltip />
+
+            <Legend />
+
+          </PieChart>
+
+        </ResponsiveContainer>
 
       </div>
 
