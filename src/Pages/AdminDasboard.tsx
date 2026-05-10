@@ -2084,12 +2084,14 @@ function AdminDashboard() {
                   gap-4 mt-7
                 ">
 
-                  {[
-                    q.option1,
-                    q.option2,
-                    q.option3,
-                    q.option4
-                  ].map((opt, i) => (
+             {[
+  q.option1,
+  q.option2,
+  q.option3,
+  q.option4
+]
+.filter((opt) => opt.trim() !== "")
+.map((opt, i) => (
 
                     <div
                       key={i}

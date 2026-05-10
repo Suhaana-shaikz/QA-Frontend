@@ -1095,12 +1095,18 @@ function Exam() {
                 grid gap-3
               ">
 
-                {[
+                {
+               [
                   { key: "A", value: q.option1 },
                   { key: "B", value: q.option2 },
                   { key: "C", value: q.option3 },
                   { key: "D", value: q.option4 }
-                ].map(opt => {
+               ]
+              .filter(opt => opt.value.trim() !== "")
+              .map(opt => {
+
+
+                  
 
                   const isSelected = answers.find(
                     a =>
