@@ -1631,6 +1631,8 @@ function AdminDashboard() {
 
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  const [selectedQuestion, setSelectedQuestion] = useState<number>(1);
+
   const [form, setForm] = useState<Omit<Question, "id">>({
     question: "",
     option1: "",
@@ -2387,6 +2389,7 @@ function AdminDashboard() {
   </div>
 
 </div>
+           
 <div className="grid gap-8">
 
   {Object.values(
