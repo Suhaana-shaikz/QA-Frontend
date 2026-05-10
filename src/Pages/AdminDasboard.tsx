@@ -1633,6 +1633,25 @@ function AdminDashboard() {
 
   const [selectedQuestion, setSelectedQuestion] = useState<number>(1);
 
+  const [questionLimit, setQuestionLimit] =
+  useState<number>(
+    Number(localStorage.getItem("questionLimit")) || 20
+  );
+
+  const saveQuestionLimit = () => {
+
+  localStorage.setItem(
+    "questionLimit",
+    String(questionLimit)
+  );
+
+  alert("Question limit updated");
+
+};
+
+
+
+
   const [form, setForm] = useState<Omit<Question, "id">>({
     question: "",
     option1: "",
@@ -2263,6 +2282,46 @@ function AdminDashboard() {
                 <Download size={20} />
                 Download CSV
               </button>
+
+
+              <div className="
+  flex items-center gap-4
+  mt-5
+">
+
+  <input
+    type="number"
+    min={1}
+    max={questions.length}
+    value={questionLimit}
+    onChange={(e) =>
+      setQuestionLimit(Number(e.target.value))
+    }
+    className="
+      bg-[#1e293b]
+      border border-white/10
+      text-white
+      px-5 py-3
+      rounded-2xl
+      w-[140px]
+      outline-none
+    "
+  />
+
+  <button
+    onClick={saveQuestionLimit}
+    className="
+      bg-gradient-to-r
+      from-cyan-500 to-blue-600
+      px-5 py-3
+      rounded-2xl
+      text-white font-semibold
+    "
+  >
+    Save Limit
+  </button>
+
+</div>
 
             </div>
 
