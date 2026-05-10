@@ -1690,17 +1690,17 @@ function AdminDashboard() {
 
   }, [mode]);
 
-  const getQuestionNumber = (id: number) => {
+  // const getQuestionNumber = (id: number) => {
 
-    const sortedQuestions = [...questions]
-      .sort((a, b) => a.id - b.id);
+  //   const sortedQuestions = [...questions]
+  //     .sort((a, b) => a.id - b.id);
 
-    const index = sortedQuestions.findIndex(
-      (q) => q.id === id
-    );
+  //   const index = sortedQuestions.findIndex(
+  //     (q) => q.id === id
+  //   );
 
-    return index !== -1 ? index + 1 : null;
-  };
+  //   return index !== -1 ? index + 1 : null;
+  // };
 
   const handleSubmit = async () => {
 
@@ -2220,182 +2220,258 @@ function AdminDashboard() {
             </div>
 
             {/* STUDENTS */}
-            <div className="grid gap-8">
+           {/* GROUPED STUDENTS */}
+<div className="grid gap-8">
 
-              {Object.values(
+  {Object.values(
 
-                students.reduce((acc: any, item: any) => {
+    students.reduce((acc: any, item: any) => {
 
-                  if (!acc[item.email]) {
+      // CREATE STUDENT
+      if (!acc[item.email]) {
 
-                    acc[item.email] = {
-                      name: item.name,
-                      email: item.email,
-                      answers: []
-                    };
-                  }
+        acc[item.email] = {
+          name: item.name,
+          email: item.email,
+          answers: []
+        };
 
-                  const questionExists = questions.some(
-                    (q) => q.id === item.questionId
-                  );
+      }
 
-                  if (questionExists) {
+      // QUESTION EXISTS OR NOT
+      const questionExists = questions.some(
+        (q) => q.id === item.questionId
+      );
 
-                    acc[item.email].answers.push({
-                      questionId: item.questionId,
-                      selectedOption: item.selectedOption
-                    });
-                  }
+      if (questionExists) {
 
-                  return acc;
+        // REMOVE DUPLICATES
+        const alreadyAnswered =
+          acc[item.email].answers.some(
+            (a: any) => a.questionId === item.questionId
+          );
 
-                }, {})
+        if (!alreadyAnswered) {
 
-              ).map((student: any, index) => (
+          acc[item.email].answers.push({
+            questionId: item.questionId,
+            selectedOption: item.selectedOption
+          });
 
-                <div
-                  key={index}
-                  className="
-                    bg-white/10
-                    backdrop-blur-2xl
-                    border border-white/10
-                    rounded-[32px]
-                    overflow-hidden
-                  "
-                >
+        }
 
-                  {/* TOP */}
-                  <div className="
-                    p-8 border-b border-white/10
-                    bg-gradient-to-r
-                    from-cyan-500/10 to-blue-500/10
-                  ">
+      }
 
-                    <div className="
-                      flex flex-col lg:flex-row
-                      lg:items-center lg:justify-between
-                      gap-6
-                    ">
+      return acc;
 
-                      <div className="flex items-center gap-5">
+    }, {})
 
-                        <div className="
-                          w-16 h-16 rounded-2xl
-                          bg-gradient-to-br
-                          from-cyan-500 to-blue-600
-                          flex items-center justify-center
-                          text-white text-2xl font-black
-                        ">
-                          {student.name.charAt(0)}
-                        </div>
+  ).map((student: any, index) => (
 
-                        <div>
+    <div
+      key={index}
+      className="
+        bg-white/10
+        backdrop-blur-2xl
+        border border-white/10
+        rounded-[32px]
+        overflow-hidden
+        shadow-[0_8px_32px_rgba(0,0,0,0.37)]
+      "
+    >
 
-                          <h3 className="
-                            text-2xl font-black text-white
-                          ">
-                            {student.name}
-                          </h3>
+      {/* TOP */}
+      <div className="
+        p-8 border-b border-white/10
+        bg-gradient-to-r
+        from-cyan-500/10
+        to-blue-500/10
+      ">
 
-                          <p className="text-slate-300 mt-1">
-                            {student.email}
-                          </p>
+        <div className="
+          flex flex-col lg:flex-row
+          lg:items-center lg:justify-between
+          gap-6
+        ">
 
-                        </div>
+          {/* LEFT */}
+          <div className="flex items-center gap-5">
 
-                      </div>
+            <div className="
+              w-16 h-16 rounded-2xl
+              bg-gradient-to-br
+              from-cyan-500 to-blue-600
+              flex items-center justify-center
+              text-white text-2xl font-black
+            ">
+              {student.name.charAt(0)}
+            </div>
 
-                      <div className="
-                        bg-white/10
-                        border border-white/10
-                        px-6 py-5 rounded-2xl
-                      ">
+            <div>
 
-                        <p className="text-slate-400 text-sm">
-                          Total Answers
-                        </p>
+              <h3 className="
+                text-2xl font-black text-white
+              ">
+                {student.name}
+              </h3>
 
-                        <h2 className="
-                          text-4xl font-black
-                          text-cyan-400 mt-1
-                        ">
-                          {student.answers.length}
-                        </h2>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  {/* ANSWERS */}
-                  <div className="p-8">
-
-                    <h4 className="
-                      text-xl font-bold
-                      text-white mb-6
-                    ">
-                      Submitted Answers
-                    </h4>
-
-                    <div className="
-                      grid grid-cols-2
-                      md:grid-cols-3
-                      lg:grid-cols-5
-                      gap-5
-                    ">
-
-                      {student.answers.map(
-                        (ans: any, i: number) => (
-
-                          <div
-                            key={i}
-                            className="
-                              bg-white/5
-                              border border-white/10
-                              rounded-2xl
-                              p-5 text-center
-                            "
-                          >
-
-                            <p className="
-                              text-slate-400 text-sm
-                            ">
-                              Question
-                            </p>
-
-                            <h2 className="
-                              text-4xl font-black
-                              text-cyan-400 mt-2
-                            ">
-                              {getQuestionNumber(ans.questionId)}
-                            </h2>
-
-                            <div className="
-                              mt-5
-                              bg-gradient-to-r
-                              from-emerald-500 to-green-600
-                              py-3 rounded-xl
-                              text-white font-black
-                              text-xl
-                            ">
-                              {ans.selectedOption}
-                            </div>
-
-                          </div>
-
-                        )
-                      )}
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              ))}
+              <p className="text-slate-300 mt-1">
+                {student.email}
+              </p>
 
             </div>
+
+          </div>
+
+          {/* RIGHT */}
+          <div className="flex items-center gap-4">
+
+            {/* TOTAL ANSWERS */}
+            <div className="
+              bg-white/10
+              border border-white/10
+              px-6 py-5 rounded-2xl
+            ">
+
+              <p className="
+                text-slate-400 text-sm
+              ">
+                Total Answers
+              </p>
+
+              <h2 className="
+                text-4xl font-black
+                text-cyan-400 mt-1
+              ">
+                {Math.min(
+                  student.answers.length,
+                  questions.length
+                )}
+              </h2>
+
+            </div>
+
+            {/* DELETE BUTTON */}
+            <button
+              onClick={async () => {
+
+                const confirmDelete = window.confirm(
+                  "Delete this student's answers?"
+                );
+
+                if (!confirmDelete) return;
+
+                try {
+
+                  await axios.delete(
+                    `${STUDENT_API}/student/deleteByid/${index + 1}`,
+                    {
+                      headers: getHeaders()
+                    }
+                  );
+
+                  loadStudents();
+
+                  alert("Student Answers Deleted");
+
+                } catch (error) {
+
+                  console.error(error);
+
+                  alert("Delete Failed");
+
+                }
+
+              }}
+              className="
+                bg-gradient-to-r
+                from-red-500 to-rose-600
+                hover:from-red-600 hover:to-rose-700
+                px-5 py-5 rounded-2xl
+                text-white
+                shadow-xl shadow-red-500/20
+                transition-all hover:scale-[1.03]
+              "
+            >
+              <Trash2 size={22} />
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ANSWERS */}
+      <div className="p-8">
+
+        <h4 className="
+          text-xl font-bold
+          text-white mb-6
+        ">
+          Submitted Answers
+        </h4>
+
+        <div className="
+          grid grid-cols-2
+          md:grid-cols-3
+          lg:grid-cols-5
+          gap-5
+        ">
+
+          {student.answers
+            .slice(0, questions.length)
+            .map((ans: any, i: number) => (
+
+            <div
+              key={i}
+              className="
+                bg-white/5
+                border border-white/10
+                rounded-2xl
+                p-5 text-center
+              "
+            >
+
+              <p className="
+                text-slate-400 text-sm
+              ">
+                Question
+              </p>
+
+              <h2 className="
+                text-4xl font-black
+                text-cyan-400 mt-2
+              ">
+                {questions.findIndex(
+                  (q) => q.id === ans.questionId
+                ) + 1}
+              </h2>
+
+              <div className="
+                mt-5
+                bg-gradient-to-r
+                from-emerald-500 to-green-600
+                py-3 rounded-xl
+                text-white font-black
+                text-xl
+              ">
+                {ans.selectedOption}
+              </div>
+
+            </div>
+
+          ))}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  ))}
+
+</div>
 
           </div>
 
