@@ -184,10 +184,14 @@ function StudentForm() {
 
       // ✅ FIXED
       const res = await axios.get(
-        "https://examsystem-4.onrender.com/questions/random"
-      );
+  "https://examsystem-4.onrender.com/questions/random"
+);
 
-      localStorage.setItem("questions", JSON.stringify(res.data));
+const limit =Number(localStorage.getItem("questionLimit")) || 20;
+
+const limitedQuestions =res.data.slice(0, limit);
+
+      localStorage.setItem("questions",JSON.stringify(limitedQuestions));
       localStorage.setItem("studentData", JSON.stringify(form));
 
       navigate("/exam");
@@ -474,6 +478,7 @@ function StudentForm() {
 
           {/* STATE */}
           <div>
+
             <label className="text-sm font-semibold text-slate-700">
               State
             </label>
