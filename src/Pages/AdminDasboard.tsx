@@ -2266,6 +2266,127 @@ function AdminDashboard() {
 
             {/* STUDENTS */}
            {/* GROUPED STUDENTS */}
+
+
+
+           {/* QUESTION ANALYTICS */}
+<div className="
+  mt-16
+  bg-white/10
+  border border-white/10
+  rounded-[32px]
+  p-8
+  backdrop-blur-2xl
+">
+
+  {/* HEADER */}
+  <div className="
+    flex flex-col md:flex-row
+    md:items-center md:justify-between
+    gap-5 mb-10
+  ">
+
+    <div>
+
+      <p className="
+        text-cyan-400 uppercase
+        tracking-[4px]
+        text-sm font-semibold
+      ">
+        Analytics
+      </p>
+
+      <h2 className="
+        text-3xl font-black
+        text-white mt-2
+      ">
+        Question Analytics
+      </h2>
+
+    </div>
+
+    {/* SELECT QUESTION */}
+    <select
+      value={selectedQuestion}
+      onChange={(e) =>
+        setSelectedQuestion(Number(e.target.value))
+      }
+      className="
+        bg-[#1e293b]
+        border border-white/10
+        text-white
+        px-5 py-3
+        rounded-2xl
+        outline-none
+      "
+    >
+
+      {questions.map((q, index) => (
+
+        <option
+          key={q.id}
+          value={q.id}
+        >
+          Question {index + 1}
+        </option>
+
+      ))}
+
+    </select>
+
+  </div>
+
+  {/* CHART */}
+  <div className="
+    h-[450px]
+    flex items-center justify-center
+  ">
+
+    <ResponsiveContainer
+      width="100%"
+      height="100%"
+    >
+
+      <PieChart>
+
+        <Pie
+          data={getQuestionAnalytics(selectedQuestion)}
+          dataKey="value"
+          nameKey="name"
+          outerRadius={150}
+          label
+        >
+
+          {getQuestionAnalytics(selectedQuestion)
+            .map((_, i) => (
+
+            <Cell
+              key={i}
+              fill={
+                [
+                  "#06b6d4",
+                  "#10b981",
+                  "#f59e0b",
+                  "#ef4444"
+                ][i % 4]
+              }
+            />
+
+          ))}
+
+        </Pie>
+
+        <Tooltip />
+
+        <Legend />
+
+      </PieChart>
+
+    </ResponsiveContainer>
+
+  </div>
+
+</div>
 <div className="grid gap-8">
 
   {Object.values(
@@ -2519,81 +2640,7 @@ function AdminDashboard() {
 </div>
 
 
-<div className="grid md:grid-cols-2 gap-8 mt-10">
 
-  {questions.map((q, index) => (
-
-    <div
-      key={q.id}
-      className="
-        bg-white/10
-        border border-white/10
-        rounded-3xl
-        p-6
-        backdrop-blur-2xl
-      "
-    >
-
-      <h2 className="
-        text-xl font-bold
-        text-white mb-6
-      ">
-        Question {index + 1}
-      </h2>
-
-      <p className="
-        text-slate-300 mb-6
-      ">
-        {q.question}
-      </p>
-
-      <div className="h-[300px]">
-
-        <ResponsiveContainer width="100%" height="100%">
-
-          <PieChart>
-
-            <Pie
-              data={getQuestionAnalytics(q.id)}
-              dataKey="value"
-              nameKey="name"
-              outerRadius={100}
-              label
-            >
-
-              {getQuestionAnalytics(q.id).map((_, i) => (
-
-                <Cell
-                  key={i}
-                  fill={
-                    [
-                      "#06b6d4",
-                      "#10b981",
-                      "#f59e0b",
-                      "#ef4444"
-                    ][i % 4]
-                  }
-                />
-
-              ))}
-
-            </Pie>
-
-            <Tooltip />
-
-            <Legend />
-
-          </PieChart>
-
-        </ResponsiveContainer>
-
-      </div>
-
-    </div>
-
-  ))}
-
-</div>
 
           </div>
 
