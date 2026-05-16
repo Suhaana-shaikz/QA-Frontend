@@ -47,34 +47,78 @@
 // }
 
 // export default App;
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import IntroPage
+from "./Pages/IntroPage";
 
-import Home from "./Pages/Home";
-import StudentForm from "./Pages/StudentForm";
-import Exam from "./Pages/Exam";
-import AdminLogin from "./Pages/AdminLogin";
-import AdminDashboard from "./Pages/AdminDasboard";
+import DemographicPage
+from "./Pages/DemographicPage";
+
+import ExpertCategory
+from "./Pages/ExpertCategory";
+
+import Exam
+from "./Pages/Exam";
+
+import AdminLogin
+from "./Pages/AdminLogin";
+
+import AdminDashboard
+from "./Pages/AdminDasboard";
 
 function App() {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
 
-        {/* HOME */}
-        <Route path="/" element={<Home />} />
+        {/* STUDENT FLOW */}
 
-        {/* USER FLOW */}
-        <Route path="/student" element={<StudentForm />} />
-        <Route path="/exam" element={<Exam />} />
+        <Route
+          path="/"
+          element={<IntroPage />}
+        />
+
+        <Route
+          path="/demographic"
+          element={<DemographicPage />}
+        />
+
+        <Route
+          path="/expert"
+          element={<ExpertCategory />}
+        />
+
+        <Route
+          path="/exam"
+          element={<Exam />}
+        />
 
         {/* ADMIN FLOW */}
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+
+        <Route
+          path="/admin-login"
+          element={<AdminLogin />}
+        />
+
+        <Route
+          path="/admin"
+          element={<AdminDashboard />}
+        />
 
       </Routes>
+
     </BrowserRouter>
+
   );
+
 }
 
 export default App;
