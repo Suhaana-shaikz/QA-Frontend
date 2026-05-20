@@ -1,3 +1,6 @@
+// 
+
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -38,27 +41,32 @@ function IntroPage() {
 
     <div className="
       min-h-screen
-      overflow-hidden
+
       flex
       items-center
       justify-center
+
       relative
+      overflow-hidden
 
       bg-gradient-to-br
-      from-slate-900
-      via-blue-950
-      to-cyan-950
+      from-sky-50
+      via-white
+      to-cyan-50
     ">
 
-      {/* BACKGROUND BLUR CIRCLES */}
+      {/* LIGHT BACKGROUND BLURS */}
 
       <div className="
         absolute
         top-[-120px]
         left-[-120px]
-        w-[350px]
-        h-[350px]
-        bg-cyan-500/20
+
+        w-[320px]
+        h-[320px]
+
+        bg-cyan-200/40
+
         rounded-full
         blur-3xl
       "></div>
@@ -67,14 +75,17 @@ function IntroPage() {
         absolute
         bottom-[-120px]
         right-[-120px]
-        w-[350px]
-        h-[350px]
-        bg-blue-500/20
+
+        w-[320px]
+        h-[320px]
+
+        bg-blue-200/40
+
         rounded-full
         blur-3xl
       "></div>
 
-      {/* MAIN CARD */}
+      {/* CARD */}
 
       <div className="
         relative
@@ -83,17 +94,17 @@ function IntroPage() {
         w-full
         max-w-5xl
 
-        bg-white/10
-        backdrop-blur-2xl
+        bg-white/90
+        backdrop-blur-xl
 
         border
-        border-white/20
+        border-slate-200
 
         rounded-[40px]
 
         shadow-2xl
 
-        p-10
+        p-12
 
         mx-4
       ">
@@ -101,13 +112,13 @@ function IntroPage() {
         {/* TITLE */}
 
         <h1 className="
-          text-5xl
+          text-6xl
           font-black
           text-center
 
           bg-gradient-to-r
-          from-cyan-300
-          to-blue-400
+          from-cyan-500
+          to-blue-600
 
           bg-clip-text
           text-transparent
@@ -118,17 +129,21 @@ function IntroPage() {
         {/* DESCRIPTION */}
 
         <div className="
-          mt-8
-          space-y-5
-          text-slate-200
+          mt-10
+          space-y-6
         ">
 
           <p className="
-            text-xl
-            leading-relaxed
+            text-2xl
+            text-slate-600
             text-center
+            leading-relaxed
           ">
-          Your participation matters to us, and your honest opinion is essential for understanding your viewpoint for this study
+            Your participation matters
+            to us, and your honest
+            opinion is essential for
+            understanding your viewpoint
+            for this study
           </p>
 
           {/* INSTRUCTIONS */}
@@ -136,33 +151,43 @@ function IntroPage() {
           <div>
 
             <h2 className="
-              text-3xl
-              font-bold
-              text-cyan-300
+              text-4xl
+              font-black
               text-center
+
+              text-cyan-600
             ">
               Instructions
             </h2>
 
             <div className="
-              mt-5
-              space-y-4
-              text-lg
-              leading-relaxed
+              mt-6
+              space-y-5
+
+              text-xl
+              text-slate-600
+
               text-center
-              text-slate-200
+              leading-relaxed
             ">
 
               <p>
-           Please answer all questions based on your personal experience and honest opinions.
+                Please answer all questions
+                based on your personal
+                experience and honest opinions.
               </p>
 
               <p>
-             There are no right or wrong answers—we are simply interested in your perspective.
+                There are no right or wrong
+                answers — we are simply
+                interested in your perspective.
               </p>
 
               <p>
-               Your input is a vital part of our research. We are truly grateful for your time and contribution.
+                Your input is a vital part
+                of our research. We are truly
+                grateful for your time and
+                contribution.
               </p>
 
             </div>
@@ -173,13 +198,13 @@ function IntroPage() {
 
           <div className="
             text-center
-            pt-2
+            pt-3
           ">
 
             <p className="
-              text-xl
-              font-bold
-              text-cyan-200
+              text-3xl
+              font-black
+              text-cyan-600
             ">
               There are 20 questions
               in this survey.
@@ -193,6 +218,7 @@ function IntroPage() {
 
         <div className="
           mt-10
+
           flex
           justify-center
         ">
@@ -202,14 +228,19 @@ function IntroPage() {
             items-center
             gap-4
 
-            bg-white/10
-            border border-white/10
+            bg-slate-100
 
-            px-6 py-4
+            border
+            border-slate-200
 
-            rounded-2xl
+            px-8
+            py-5
+
+            rounded-3xl
 
             cursor-pointer
+
+            shadow-sm
           ">
 
             <input
@@ -229,17 +260,19 @@ function IntroPage() {
               }}
 
               className="
-                w-5
-                h-5
+                w-6
+                h-6
+
                 accent-cyan-500
               "
 
             />
 
             <span className="
-              text-lg
-              font-semibold
-              text-cyan-200
+              text-2xl
+              font-bold
+
+              text-slate-700
             ">
               Accept survey privacy policy
             </span>
@@ -256,8 +289,11 @@ function IntroPage() {
 
             <div className="
               mt-5
-              text-red-400
+
               text-center
+
+              text-red-500
+              text-lg
               font-semibold
             ">
 
@@ -274,7 +310,8 @@ function IntroPage() {
         <div className="
           flex
           justify-center
-          mt-10
+
+          mt-12
         ">
 
           <button
@@ -282,10 +319,10 @@ function IntroPage() {
             onClick={handleNext}
 
             className="
-              px-10
-              py-4
+              px-12
+              py-5
 
-              rounded-2xl
+              rounded-3xl
 
               bg-gradient-to-r
               from-cyan-500
@@ -295,10 +332,11 @@ function IntroPage() {
               hover:to-blue-700
 
               text-white
-              text-lg
+
+              text-2xl
               font-black
 
-              shadow-2xl
+              shadow-xl
 
               transition-all
               duration-300
@@ -323,35 +361,43 @@ function IntroPage() {
           <div className="
             fixed
             inset-0
-            bg-black/60
+
+            bg-black/40
+
             flex
             items-center
             justify-center
+
             z-50
           ">
 
             <div className="
-              bg-[#111827]
-              border
-              border-white/10
+              bg-white
+
               p-8
+
               rounded-3xl
-              w-[400px]
+
+              w-[420px]
+
               shadow-2xl
             ">
 
               <h1 className="
                 text-3xl
                 font-black
-                text-red-400
+
+                text-red-500
               ">
                 Validation Error
               </h1>
 
               <p className="
                 mt-4
+
                 text-lg
-                text-slate-300
+                text-slate-600
+
                 leading-relaxed
               ">
                 Please accept the
@@ -362,6 +408,7 @@ function IntroPage() {
               <div className="
                 flex
                 justify-end
+
                 mt-8
               ">
 
@@ -375,19 +422,18 @@ function IntroPage() {
                     px-6
                     py-3
 
+                    rounded-2xl
+
                     bg-gradient-to-r
                     from-cyan-500
                     to-blue-600
 
-                    hover:from-cyan-600
-                    hover:to-blue-700
-
                     text-white
 
-                    rounded-xl
-
-                    text-base
                     font-bold
+                    text-lg
+
+                    hover:scale-105
 
                     transition-all
                   "

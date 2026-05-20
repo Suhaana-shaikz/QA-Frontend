@@ -1,6 +1,5 @@
 // 
 
-
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -31,7 +30,15 @@ function ExpertCategory() {
     if (
       !data.aiExpert ||
       !data.triageExpert
-    ) return;
+    ) {
+
+      alert(
+        "Please answer all questions."
+      );
+
+      return;
+
+    }
 
     setLoading(true);
 
@@ -65,6 +72,10 @@ function ExpertCategory() {
 
       console.log(error);
 
+      alert(
+        "Failed to load questions."
+      );
+
     } finally {
 
       setLoading(false);
@@ -77,58 +88,156 @@ function ExpertCategory() {
 
     <div className="
       min-h-screen
+
+      flex
+      items-center
+      justify-center
+
+      relative
       overflow-hidden
-      bg-[#f5f5f5]
-      px-4
-      py-4
+
+      bg-gradient-to-br
+      from-sky-50
+      via-white
+      to-cyan-50
     ">
 
+      {/* BACKGROUND BLURS */}
+
       <div className="
-        max-w-4xl
-        mx-auto
+        absolute
+        top-[-120px]
+        left-[-120px]
+
+        w-[320px]
+        h-[320px]
+
+        bg-cyan-200/40
+
+        rounded-full
+        blur-3xl
+      "></div>
+
+      <div className="
+        absolute
+        bottom-[-120px]
+        right-[-120px]
+
+        w-[320px]
+        h-[320px]
+
+        bg-blue-200/40
+
+        rounded-full
+        blur-3xl
+      "></div>
+
+      {/* MAIN CARD */}
+
+      <div className="
+        relative
+        z-10
+
+        w-full
+        max-w-3xl
+
+        bg-white/90
+        backdrop-blur-xl
+
+        border
+        border-slate-200
+
+        rounded-[40px]
+
+        shadow-2xl
+
+        p-10
+
+        mx-4
       ">
 
+        {/* TITLE */}
+
         <h1 className="
-          text-3xl
+          text-5xl
           font-black
+          text-center
+
+          bg-gradient-to-r
+          from-cyan-500
+          to-blue-600
+
+          bg-clip-text
+          text-transparent
         ">
           Expert Category
         </h1>
 
         <p className="
-          text-base
-          text-slate-600
-          mt-2
+          text-center
+          text-slate-500
+          text-lg
+          mt-4
         ">
-          Please answer before
-          starting the exam.
+          Please answer the following
+          questions before starting
+          the survey.
         </p>
 
+        {/* QUESTIONS */}
+
         <div className="
-          mt-6
-          space-y-6
+          mt-10
+          space-y-8
         ">
 
-          <div>
+          {/* AI EXPERT */}
+
+          <div className="
+            bg-slate-50
+
+            border
+            border-slate-200
+
+            rounded-3xl
+
+            p-6
+          ">
 
             <h2 className="
-              text-xl
+              text-2xl
               font-bold
+              text-slate-700
             ">
               Are you an AI Expert?
             </h2>
 
             <div className="
               flex
-              gap-6
-              mt-3
+              gap-5
+              mt-5
             ">
+
+              {/* YES */}
 
               <label className="
                 flex
                 items-center
-                gap-2
-                text-base
+                gap-3
+
+                px-6
+                py-4
+
+                rounded-2xl
+
+                bg-white
+
+                border
+                border-slate-200
+
+                shadow-sm
+
+                cursor-pointer
               ">
 
                 <input
@@ -152,21 +261,44 @@ function ExpertCategory() {
                   }
 
                   className="
-                    w-4
-                    h-4
+                    w-5
+                    h-5
+
+                    accent-cyan-500
                   "
 
                 />
 
-                Yes
+                <span className="
+                  text-lg
+                  font-bold
+                  text-slate-700
+                ">
+                  Yes
+                </span>
 
               </label>
+
+              {/* NO */}
 
               <label className="
                 flex
                 items-center
-                gap-2
-                text-base
+                gap-3
+
+                px-6
+                py-4
+
+                rounded-2xl
+
+                bg-white
+
+                border
+                border-slate-200
+
+                shadow-sm
+
+                cursor-pointer
               ">
 
                 <input
@@ -190,13 +322,21 @@ function ExpertCategory() {
                   }
 
                   className="
-                    w-4
-                    h-4
+                    w-5
+                    h-5
+
+                    accent-cyan-500
                   "
 
                 />
 
-                No
+                <span className="
+                  text-lg
+                  font-bold
+                  text-slate-700
+                ">
+                  No
+                </span>
 
               </label>
 
@@ -204,26 +344,53 @@ function ExpertCategory() {
 
           </div>
 
-          <div>
+          {/* TRIAGE EXPERT */}
+
+          <div className="
+            bg-slate-50
+
+            border
+            border-slate-200
+
+            rounded-3xl
+
+            p-6
+          ">
 
             <h2 className="
-              text-xl
+              text-2xl
               font-bold
+              text-slate-700
             ">
               Are you a Triage Expert?
             </h2>
 
             <div className="
               flex
-              gap-6
-              mt-3
+              gap-5
+              mt-5
             ">
+
+              {/* YES */}
 
               <label className="
                 flex
                 items-center
-                gap-2
-                text-base
+                gap-3
+
+                px-6
+                py-4
+
+                rounded-2xl
+
+                bg-white
+
+                border
+                border-slate-200
+
+                shadow-sm
+
+                cursor-pointer
               ">
 
                 <input
@@ -248,21 +415,44 @@ function ExpertCategory() {
                   }
 
                   className="
-                    w-4
-                    h-4
+                    w-5
+                    h-5
+
+                    accent-cyan-500
                   "
 
                 />
 
-                Yes
+                <span className="
+                  text-lg
+                  font-bold
+                  text-slate-700
+                ">
+                  Yes
+                </span>
 
               </label>
+
+              {/* NO */}
 
               <label className="
                 flex
                 items-center
-                gap-2
-                text-base
+                gap-3
+
+                px-6
+                py-4
+
+                rounded-2xl
+
+                bg-white
+
+                border
+                border-slate-200
+
+                shadow-sm
+
+                cursor-pointer
               ">
 
                 <input
@@ -287,13 +477,21 @@ function ExpertCategory() {
                   }
 
                   className="
-                    w-4
-                    h-4
+                    w-5
+                    h-5
+
+                    accent-cyan-500
                   "
 
                 />
 
-                No
+                <span className="
+                  text-lg
+                  font-bold
+                  text-slate-700
+                ">
+                  No
+                </span>
 
               </label>
 
@@ -303,11 +501,16 @@ function ExpertCategory() {
 
         </div>
 
+        {/* BUTTONS */}
+
         <div className="
           flex
           justify-between
-          mt-8
+
+          mt-10
         ">
+
+          {/* PREVIOUS */}
 
           <button
 
@@ -316,16 +519,27 @@ function ExpertCategory() {
             }
 
             className="
-              px-5
-              py-2
-              bg-slate-300
-              rounded-lg
-              text-base
+              px-8
+              py-4
+
+              rounded-2xl
+
+              bg-slate-200
+
+              text-slate-700
+              text-lg
+              font-bold
+
+              hover:bg-slate-300
+
+              transition-all
             "
 
           >
             Previous
           </button>
+
+          {/* START */}
 
           <button
 
@@ -334,13 +548,28 @@ function ExpertCategory() {
             disabled={loading}
 
             className="
-              px-5
-              py-2
-              bg-green-500
+              px-8
+              py-4
+
+              rounded-2xl
+
+              bg-gradient-to-r
+              from-cyan-500
+              to-blue-600
+
+              hover:from-cyan-600
+              hover:to-blue-700
+
               text-white
-              rounded-lg
-              text-base
-              font-bold
+              text-lg
+              font-black
+
+              shadow-xl
+
+              transition-all
+              duration-300
+
+              hover:scale-105
             "
 
           >
@@ -355,7 +584,7 @@ function ExpertCategory() {
 
               :
 
-              "Start Questions"
+              "Start Survey"
 
             }
 
