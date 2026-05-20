@@ -1,15 +1,19 @@
+// 
+
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 const QUESTION_API =
-  "https://examsystem-4.onrender.com";
+"https://examsystem-4.onrender.com";
 
 function ExpertCategory() {
 
   const navigate = useNavigate();
 
-  const [data, setData] = useState({
+  const [data, setData] =
+  useState({
 
     aiExpert: "",
     triageExpert: ""
@@ -21,33 +25,13 @@ function ExpertCategory() {
   =
   useState(false);
 
-  const [error,
-  setError]
-  =
-  useState("");
-
-  const [showModal,
-  setShowModal]
-  =
-  useState(false);
-
-  const handleStart = async () => {
-
-    if (loading) return;
+  const handleStart =
+  async () => {
 
     if (
       !data.aiExpert ||
       !data.triageExpert
-    ) {
-
-      setError(
-        "Please select all expert category options."
-      );
-
-      setShowModal(true);
-
-      return;
-    }
+    ) return;
 
     setLoading(true);
 
@@ -59,11 +43,11 @@ function ExpertCategory() {
       );
 
       const limit =
-        Number(
-          localStorage.getItem(
-            "questionLimit"
-          )
-        ) || 20;
+      Number(
+        localStorage.getItem(
+          "questionLimit"
+        )
+      ) || 20;
 
       const res =
       await axios.get(
@@ -81,12 +65,6 @@ function ExpertCategory() {
 
       console.log(error);
 
-      setError(
-        "Failed to load questions."
-      );
-
-      setShowModal(true);
-
     } finally {
 
       setLoading(false);
@@ -99,72 +77,42 @@ function ExpertCategory() {
 
     <div className="
       min-h-screen
+      overflow-hidden
       bg-[#f5f5f5]
-      px-6
-      py-10
+      px-4
+      py-4
     ">
 
       <div className="
-        max-w-5xl
+        max-w-4xl
         mx-auto
       ">
 
         <h1 className="
-          text-5xl
+          text-3xl
           font-black
         ">
           Expert Category
         </h1>
 
         <p className="
-          text-2xl
+          text-base
           text-slate-600
-          mt-6
+          mt-2
         ">
-          Please answer the following
-          questions before starting
-          the examination.
+          Please answer before
+          starting the exam.
         </p>
 
-        {/* ERROR */}
-
-        {
-
-          error && (
-
-            <div className="
-              mt-8
-              text-red-500
-              text-2xl
-              font-semibold
-              space-y-2
-            ">
-
-              <p>
-                ● Validation Required
-              </p>
-
-              <p>
-                ● {error}
-              </p>
-
-            </div>
-
-          )
-
-        }
-
         <div className="
-          mt-16
-          space-y-16
+          mt-6
+          space-y-6
         ">
-
-          {/* AI EXPERT */}
 
           <div>
 
             <h2 className="
-              text-3xl
+              text-xl
               font-bold
             ">
               Are you an AI Expert?
@@ -172,16 +120,15 @@ function ExpertCategory() {
 
             <div className="
               flex
-              gap-10
-              mt-6
+              gap-6
+              mt-3
             ">
 
               <label className="
                 flex
                 items-center
-                gap-3
-                text-2xl
-                font-semibold
+                gap-2
+                text-base
               ">
 
                 <input
@@ -196,21 +143,17 @@ function ExpertCategory() {
                     data.aiExpert === "Yes"
                   }
 
-                  onChange={(e) => {
-
+                  onChange={(e) =>
                     setData({
                       ...data,
                       aiExpert:
                       e.target.value
-                    });
-
-                    setError("");
-
-                  }}
+                    })
+                  }
 
                   className="
-                    w-6
-                    h-6
+                    w-4
+                    h-4
                   "
 
                 />
@@ -222,9 +165,8 @@ function ExpertCategory() {
               <label className="
                 flex
                 items-center
-                gap-3
-                text-2xl
-                font-semibold
+                gap-2
+                text-base
               ">
 
                 <input
@@ -239,21 +181,17 @@ function ExpertCategory() {
                     data.aiExpert === "No"
                   }
 
-                  onChange={(e) => {
-
+                  onChange={(e) =>
                     setData({
                       ...data,
                       aiExpert:
                       e.target.value
-                    });
-
-                    setError("");
-
-                  }}
+                    })
+                  }
 
                   className="
-                    w-6
-                    h-6
+                    w-4
+                    h-4
                   "
 
                 />
@@ -266,12 +204,10 @@ function ExpertCategory() {
 
           </div>
 
-          {/* TRIAGE */}
-
           <div>
 
             <h2 className="
-              text-3xl
+              text-xl
               font-bold
             ">
               Are you a Triage Expert?
@@ -279,16 +215,15 @@ function ExpertCategory() {
 
             <div className="
               flex
-              gap-10
-              mt-6
+              gap-6
+              mt-3
             ">
 
               <label className="
                 flex
                 items-center
-                gap-3
-                text-2xl
-                font-semibold
+                gap-2
+                text-base
               ">
 
                 <input
@@ -304,21 +239,17 @@ function ExpertCategory() {
                     === "Yes"
                   }
 
-                  onChange={(e) => {
-
+                  onChange={(e) =>
                     setData({
                       ...data,
                       triageExpert:
                       e.target.value
-                    });
-
-                    setError("");
-
-                  }}
+                    })
+                  }
 
                   className="
-                    w-6
-                    h-6
+                    w-4
+                    h-4
                   "
 
                 />
@@ -330,9 +261,8 @@ function ExpertCategory() {
               <label className="
                 flex
                 items-center
-                gap-3
-                text-2xl
-                font-semibold
+                gap-2
+                text-base
               ">
 
                 <input
@@ -348,21 +278,17 @@ function ExpertCategory() {
                     === "No"
                   }
 
-                  onChange={(e) => {
-
+                  onChange={(e) =>
                     setData({
                       ...data,
                       triageExpert:
                       e.target.value
-                    });
-
-                    setError("");
-
-                  }}
+                    })
+                  }
 
                   className="
-                    w-6
-                    h-6
+                    w-4
+                    h-4
                   "
 
                 />
@@ -377,12 +303,10 @@ function ExpertCategory() {
 
         </div>
 
-        {/* BUTTONS */}
-
         <div className="
           flex
           justify-between
-          mt-20
+          mt-8
         ">
 
           <button
@@ -392,12 +316,11 @@ function ExpertCategory() {
             }
 
             className="
-              px-8
-              py-4
+              px-5
+              py-2
               bg-slate-300
-              rounded-xl
-              text-xl
-              font-semibold
+              rounded-lg
+              text-base
             "
 
           >
@@ -411,12 +334,12 @@ function ExpertCategory() {
             disabled={loading}
 
             className="
-              px-10
-              py-4
+              px-5
+              py-2
               bg-green-500
               text-white
-              rounded-xl
-              text-xl
+              rounded-lg
+              text-base
               font-bold
             "
 
@@ -428,7 +351,7 @@ function ExpertCategory() {
 
               ?
 
-              "Loading Questions..."
+              "Loading..."
 
               :
 
@@ -441,81 +364,6 @@ function ExpertCategory() {
         </div>
 
       </div>
-
-      {/* MODAL */}
-
-      {
-
-        showModal && (
-
-          <div className="
-            fixed
-            inset-0
-            bg-black/50
-            flex
-            items-center
-            justify-center
-            z-50
-          ">
-
-            <div className="
-              bg-white
-              p-10
-              rounded-3xl
-              w-[500px]
-            ">
-
-              <h1 className="
-                text-4xl
-                font-black
-                text-red-500
-              ">
-                Validation Error
-              </h1>
-
-              <p className="
-                mt-6
-                text-2xl
-                text-slate-700
-              ">
-                {error}
-              </p>
-
-              <div className="
-                flex
-                justify-end
-                mt-10
-              ">
-
-                <button
-
-                  onClick={() =>
-                    setShowModal(false)
-                  }
-
-                  className="
-                    px-8
-                    py-3
-                    bg-blue-500
-                    text-white
-                    rounded-xl
-                    text-xl
-                    font-bold
-                  "
-
-                >
-                  OK
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        )
-
-      }
 
     </div>
 

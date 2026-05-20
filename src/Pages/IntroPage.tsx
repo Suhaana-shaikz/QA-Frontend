@@ -1,3 +1,6 @@
+// 
+
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -5,15 +8,11 @@ function IntroPage() {
 
   const navigate = useNavigate();
 
-  const [accepted,
-  setAccepted]
-  =
-  useState(false);
+  const [accepted, setAccepted] =
+    useState(false);
 
-  const [error,
-  setError]
-  =
-  useState("");
+  const [error, setError] =
+    useState("");
 
   const [showModal,
   setShowModal]
@@ -25,15 +24,14 @@ function IntroPage() {
     if (!accepted) {
 
       setError(
-        "To continue please first accept our survey privacy policy."
+        "Please accept the privacy policy."
       );
 
       setShowModal(true);
 
       return;
-    }
 
-    setError("");
+    }
 
     navigate("/demographic");
 
@@ -43,101 +41,82 @@ function IntroPage() {
 
     <div className="
       min-h-screen
+      overflow-hidden
       bg-[#f5f5f5]
-      px-6
-      py-10
+      px-4
+      py-4
     ">
 
       <div className="
-        max-w-6xl
+        max-w-5xl
         mx-auto
       ">
 
-        {/* TITLE */}
-
         <h1 className="
-          text-7xl
+          text-4xl
           font-black
           text-slate-900
         ">
           Triage Case
         </h1>
 
-        {/* DESCRIPTION */}
-
         <div className="
-          mt-10
-          space-y-10
+          mt-4
+          space-y-4
           text-slate-700
         ">
 
           <p className="
-            text-3xl
+            text-lg
             leading-relaxed
           ">
             Your participation matters
-            to us, and your honest
+            to us and your honest
             opinion is essential for
-            understanding your
-            viewpoint for this study.
+            this study.
           </p>
 
           <div>
 
             <h2 className="
-              text-4xl
+              text-2xl
               font-bold
               text-slate-900
             ">
-              Instructions:
+              Instructions
             </h2>
 
             <div className="
-              mt-8
-              space-y-8
-              text-3xl
+              mt-3
+              space-y-3
+              text-lg
               leading-relaxed
             ">
 
               <p>
                 Please answer all
-                questions based on
-                your personal experience
-                and honest opinions.
+                questions honestly.
               </p>
 
               <p>
-                There are no right or
-                wrong answers —
-                we are simply interested
-                in your perspective.
+                There are no right
+                or wrong answers.
               </p>
 
               <p>
-                Your input is a vital
-                part of our research.
-                We are truly grateful
-                for your time and
-                contribution.
+                Your contribution
+                is valuable for
+                our research.
               </p>
 
             </div>
 
           </div>
 
-          <div className="pt-6">
+          <div>
 
             <p className="
-              text-3xl
-              text-slate-800
-            ">
-              Triage Case
-            </p>
-
-            <p className="
-              mt-6
-              text-4xl
-              font-bold
+              text-lg
               text-slate-800
             ">
               There are 20 questions
@@ -148,16 +127,14 @@ function IntroPage() {
 
         </div>
 
-        {/* CHECKBOX */}
-
         <div className="
-          mt-20
+          mt-6
         ">
 
           <label className="
             flex
             items-center
-            gap-5
+            gap-3
             cursor-pointer
           ">
 
@@ -174,46 +151,35 @@ function IntroPage() {
 
               }}
               className="
-                w-8
-                h-8
+                w-4
+                h-4
               "
             />
 
             <span className="
-              text-3xl
-              font-bold
+              text-base
+              font-semibold
               text-green-600
             ">
-              To continue please first
-              accept our survey
-              privacy policy.
+              Accept survey privacy policy
             </span>
 
           </label>
 
         </div>
 
-        {/* RED ERROR TEXT */}
-
         {
 
           error && (
 
             <div className="
-              mt-8
+              mt-3
               text-red-500
-              text-2xl
+              text-sm
               font-semibold
-              space-y-2
             ">
 
-              <p>
-                ● This field is mandatory
-              </p>
-
-              <p>
-                ● {error}
-              </p>
+              {error}
 
             </div>
 
@@ -221,12 +187,10 @@ function IntroPage() {
 
         }
 
-        {/* BUTTON */}
-
         <div className="
           flex
           justify-end
-          mt-20
+          mt-6
         ">
 
           <button
@@ -234,15 +198,14 @@ function IntroPage() {
             onClick={handleNext}
 
             className="
-              px-12
-              py-5
+              px-6
+              py-2
               bg-green-500
               hover:bg-green-600
               text-white
-              rounded-xl
-              text-2xl
+              rounded-lg
+              text-base
               font-bold
-              transition-all
             "
 
           >
@@ -252,8 +215,6 @@ function IntroPage() {
         </div>
 
       </div>
-
-      {/* MODAL */}
 
       {
 
@@ -271,35 +232,31 @@ function IntroPage() {
 
             <div className="
               bg-white
-              p-10
-              rounded-3xl
-              w-[500px]
-              shadow-2xl
+              p-6
+              rounded-2xl
+              w-[350px]
             ">
 
               <h1 className="
-                text-4xl
-                font-black
+                text-2xl
+                font-bold
                 text-red-500
               ">
                 Validation Error
               </h1>
 
               <p className="
-                mt-6
-                text-2xl
-                text-slate-700
-                leading-relaxed
+                mt-3
+                text-base
               ">
                 Please accept the
-                privacy policy before
-                continuing to the exam.
+                privacy policy.
               </p>
 
               <div className="
                 flex
                 justify-end
-                mt-10
+                mt-5
               ">
 
                 <button
@@ -309,13 +266,12 @@ function IntroPage() {
                   }
 
                   className="
-                    px-8
-                    py-3
+                    px-5
+                    py-2
                     bg-blue-500
-                    hover:bg-blue-600
                     text-white
-                    rounded-xl
-                    text-xl
+                    rounded-lg
+                    text-sm
                     font-bold
                   "
 

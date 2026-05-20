@@ -1,3 +1,6 @@
+// 
+
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -34,12 +37,13 @@ function DemographicPage() {
     ) {
 
       setError(
-        "Please fill all demographic details."
+        "Please fill all details."
       );
 
       setShowModal(true);
 
       return;
+
     }
 
     localStorage.setItem(
@@ -55,63 +59,33 @@ function DemographicPage() {
 
     <div className="
       min-h-screen
+      overflow-hidden
       bg-[#f5f5f5]
-      px-6
-      py-10
+      px-4
+      py-4
     ">
 
       <div className="
-        max-w-5xl
+        max-w-4xl
         mx-auto
       ">
 
         <h1 className="
-          text-5xl
+          text-3xl
           font-black
-          text-slate-900
         ">
           Demographic Information
         </h1>
 
-        {/* ERROR */}
-
-        {
-
-          error && (
-
-            <div className="
-              mt-8
-              text-red-500
-              text-2xl
-              font-semibold
-              space-y-2
-            ">
-
-              <p>
-                ● This form is mandatory
-              </p>
-
-              <p>
-                ● {error}
-              </p>
-
-            </div>
-
-          )
-
-        }
-
         <div className="
-          mt-12
-          space-y-10
+          mt-5
+          space-y-4
         ">
-
-          {/* Gender */}
 
           <div>
 
             <p className="
-              text-2xl
+              text-base
               font-bold
             ">
               Gender
@@ -121,24 +95,20 @@ function DemographicPage() {
 
               value={data.gender}
 
-              onChange={(e) => {
-
+              onChange={(e) =>
                 setData({
                   ...data,
                   gender: e.target.value
-                });
-
-                setError("");
-
-              }}
+                })
+              }
 
               className="
                 w-full
-                mt-4
-                p-4
+                mt-2
+                p-2
                 border
-                rounded-xl
-                text-xl
+                rounded-lg
+                text-base
               "
 
             >
@@ -159,12 +129,10 @@ function DemographicPage() {
 
           </div>
 
-          {/* AGE */}
-
           <div>
 
             <p className="
-              text-2xl
+              text-base
               font-bold
             ">
               Age
@@ -174,40 +142,34 @@ function DemographicPage() {
 
               type="number"
 
+              placeholder="Enter Age"
+
               value={data.age}
 
-              onChange={(e) => {
-
+              onChange={(e) =>
                 setData({
                   ...data,
                   age: e.target.value
-                });
-
-                setError("");
-
-              }}
-
-              placeholder="Enter Age"
+                })
+              }
 
               className="
                 w-full
-                mt-4
-                p-4
+                mt-2
+                p-2
                 border
-                rounded-xl
-                text-xl
+                rounded-lg
+                text-base
               "
 
             />
 
           </div>
 
-          {/* QUALIFICATION */}
-
           <div>
 
             <p className="
-              text-2xl
+              text-base
               font-bold
             ">
               Qualification
@@ -217,41 +179,35 @@ function DemographicPage() {
 
               type="text"
 
+              placeholder="Enter Qualification"
+
               value={data.qualification}
 
-              onChange={(e) => {
-
+              onChange={(e) =>
                 setData({
                   ...data,
                   qualification:
                   e.target.value
-                });
-
-                setError("");
-
-              }}
-
-              placeholder="Enter Qualification"
+                })
+              }
 
               className="
                 w-full
-                mt-4
-                p-4
+                mt-2
+                p-2
                 border
-                rounded-xl
-                text-xl
+                rounded-lg
+                text-base
               "
 
             />
 
           </div>
 
-          {/* CITY */}
-
           <div>
 
             <p className="
-              text-2xl
+              text-base
               font-bold
             ">
               City
@@ -261,40 +217,34 @@ function DemographicPage() {
 
               type="text"
 
+              placeholder="Enter City"
+
               value={data.city}
 
-              onChange={(e) => {
-
+              onChange={(e) =>
                 setData({
                   ...data,
                   city: e.target.value
-                });
-
-                setError("");
-
-              }}
-
-              placeholder="Enter City"
+                })
+              }
 
               className="
                 w-full
-                mt-4
-                p-4
+                mt-2
+                p-2
                 border
-                rounded-xl
-                text-xl
+                rounded-lg
+                text-base
               "
 
             />
 
           </div>
 
-          {/* STATE */}
-
           <div>
 
             <p className="
-              text-2xl
+              text-base
               font-bold
             ">
               State
@@ -304,28 +254,24 @@ function DemographicPage() {
 
               type="text"
 
+              placeholder="Enter State"
+
               value={data.state}
 
-              onChange={(e) => {
-
+              onChange={(e) =>
                 setData({
                   ...data,
                   state: e.target.value
-                });
-
-                setError("");
-
-              }}
-
-              placeholder="Enter State"
+                })
+              }
 
               className="
                 w-full
-                mt-4
-                p-4
+                mt-2
+                p-2
                 border
-                rounded-xl
-                text-xl
+                rounded-lg
+                text-base
               "
 
             />
@@ -334,12 +280,10 @@ function DemographicPage() {
 
         </div>
 
-        {/* BUTTONS */}
-
         <div className="
           flex
           justify-between
-          mt-16
+          mt-6
         ">
 
           <button
@@ -349,11 +293,11 @@ function DemographicPage() {
             }
 
             className="
-              px-8
-              py-4
+              px-5
+              py-2
               bg-slate-300
-              rounded-xl
-              text-xl
+              rounded-lg
+              text-base
               font-semibold
             "
 
@@ -366,12 +310,12 @@ function DemographicPage() {
             onClick={handleNext}
 
             className="
-              px-10
-              py-4
+              px-5
+              py-2
               bg-green-500
               text-white
-              rounded-xl
-              text-xl
+              rounded-lg
+              text-base
               font-bold
             "
 
@@ -382,83 +326,6 @@ function DemographicPage() {
         </div>
 
       </div>
-
-      {/* MODAL */}
-
-      {
-
-        showModal && (
-
-          <div className="
-            fixed
-            inset-0
-            bg-black/50
-            flex
-            items-center
-            justify-center
-            z-50
-          ">
-
-            <div className="
-              bg-white
-              p-10
-              rounded-3xl
-              w-[500px]
-            ">
-
-              <h1 className="
-                text-4xl
-                font-black
-                text-red-500
-              ">
-                Validation Error
-              </h1>
-
-              <p className="
-                mt-6
-                text-2xl
-                text-slate-700
-              ">
-                Please complete all
-                demographic fields
-                before continuing.
-              </p>
-
-              <div className="
-                flex
-                justify-end
-                mt-10
-              ">
-
-                <button
-
-                  onClick={() =>
-                    setShowModal(false)
-                  }
-
-                  className="
-                    px-8
-                    py-3
-                    bg-blue-500
-                    text-white
-                    rounded-xl
-                    text-xl
-                    font-bold
-                  "
-
-                >
-                  OK
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        )
-
-      }
 
     </div>
 
