@@ -1,4 +1,4 @@
-// 
+
 
 
 import { useNavigate } from "react-router-dom";
@@ -18,14 +18,6 @@ function DemographicPage() {
 
   });
 
-  const [error, setError] =
-    useState("");
-
-  const [showModal,
-  setShowModal]
-  =
-  useState(false);
-
   const handleNext = () => {
 
     if (
@@ -36,11 +28,7 @@ function DemographicPage() {
       !data.state
     ) {
 
-      setError(
-        "Please fill all details."
-      );
-
-      setShowModal(true);
+      alert("Please fill all details.");
 
       return;
 
