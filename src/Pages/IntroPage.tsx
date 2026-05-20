@@ -1,6 +1,7 @@
 // 
 
 
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -11,23 +12,13 @@ function IntroPage() {
   const [accepted, setAccepted] =
     useState(false);
 
-  const [error, setError] =
-    useState("");
-
-  const [showModal,
-  setShowModal]
-  =
-  useState(false);
-
   const handleNext = () => {
 
     if (!accepted) {
 
-      setError(
+      alert(
         "Please accept the privacy policy."
       );
-
-      setShowModal(true);
 
       return;
 
@@ -50,164 +41,273 @@ function IntroPage() {
       overflow-hidden
 
       bg-gradient-to-br
-      from-sky-50
-      via-white
-      to-cyan-50
+      from-[#eef7ff]
+      via-[#f8fbff]
+      to-[#e0f2fe]
     ">
 
-      {/* LIGHT BACKGROUND BLURS */}
+      {/* TOP RIGHT BLUR */}
 
       <div className="
         absolute
-        top-[-120px]
-        left-[-120px]
+        top-[-100px]
+        right-[-100px]
 
-        w-[320px]
-        h-[320px]
+        w-[300px]
+        h-[300px]
 
-        bg-cyan-200/40
+        bg-cyan-200/50
 
         rounded-full
         blur-3xl
       "></div>
 
+      {/* BOTTOM LEFT BLUR */}
+
       <div className="
         absolute
-        bottom-[-120px]
-        right-[-120px]
+        bottom-[-100px]
+        left-[-100px]
 
-        w-[320px]
-        h-[320px]
+        w-[280px]
+        h-[280px]
 
-        bg-blue-200/40
+        bg-blue-200/50
 
         rounded-full
         blur-3xl
       "></div>
 
-      {/* CARD */}
+      {/* MAIN CARD */}
 
       <div className="
         relative
         z-10
 
         w-full
-        max-w-5xl
+        max-w-4xl
 
-        bg-white/90
+        bg-white/80
         backdrop-blur-xl
 
         border
-        border-slate-200
+        border-white/40
 
-        rounded-[40px]
+        rounded-[32px]
 
-        shadow-2xl
+        shadow-[0_20px_80px_rgba(0,0,0,0.08)]
 
-        p-12
+        px-14
+        py-12
 
         mx-4
       ">
 
+        {/* SMALL TOP BADGE */}
+
+        <div className="
+          flex
+          justify-center
+        ">
+
+          <div className="
+            px-5
+            py-2
+
+            rounded-full
+
+            bg-cyan-100
+
+            text-cyan-700
+
+            text-sm
+            font-bold
+          ">
+            Research Survey
+          </div>
+
+        </div>
+
         {/* TITLE */}
 
         <h1 className="
-          text-6xl
+          mt-5
+
+          text-5xl
           font-black
+
           text-center
 
-          bg-gradient-to-r
-          from-cyan-500
-          to-blue-600
-
-          bg-clip-text
-          text-transparent
+          text-slate-800
         ">
           Triage Case
         </h1>
 
-        {/* DESCRIPTION */}
+        {/* SUBTITLE */}
+
+        <p className="
+          mt-5
+
+          text-center
+
+          text-slate-500
+
+          text-xl
+          leading-relaxed
+        ">
+          Your responses will help us
+          better understand disaster
+          urgency assessment and
+          decision-making perspectives.
+        </p>
+
+        {/* INSTRUCTIONS BOX */}
 
         <div className="
           mt-10
-          space-y-6
+
+          grid
+          md:grid-cols-3
+
+          gap-5
         ">
 
-          <p className="
-            text-2xl
-            text-slate-600
+          {/* CARD 1 */}
+
+          <div className="
+            bg-[#f8fbff]
+
+            border
+            border-slate-100
+
+            rounded-3xl
+
+            p-5
+
             text-center
-            leading-relaxed
           ">
-            Your participation matters
-            to us, and your honest
-            opinion is essential for
-            understanding your viewpoint
-            for this study
-          </p>
-
-          {/* INSTRUCTIONS */}
-
-          <div>
-
-            <h2 className="
-              text-4xl
-              font-black
-              text-center
-
-              text-cyan-600
-            ">
-              Instructions
-            </h2>
 
             <div className="
-              mt-6
-              space-y-5
-
-              text-xl
-              text-slate-600
-
-              text-center
-              leading-relaxed
+              text-4xl
             ">
-
-              <p>
-                Please answer all questions
-                based on your personal
-                experience and honest opinions.
-              </p>
-
-              <p>
-                There are no right or wrong
-                answers — we are simply
-                interested in your perspective.
-              </p>
-
-              <p>
-                Your input is a vital part
-                of our research. We are truly
-                grateful for your time and
-                contribution.
-              </p>
-
+              📝
             </div>
+
+            <h2 className="
+              mt-3
+
+              text-lg
+              font-black
+
+              text-slate-700
+            ">
+              Honest Answers
+            </h2>
+
+            <p className="
+              mt-2
+
+              text-sm
+              leading-relaxed
+
+              text-slate-500
+            ">
+              Please answer based on
+              your personal perspective.
+            </p>
 
           </div>
 
-          {/* QUESTION COUNT */}
+          {/* CARD 2 */}
 
           <div className="
+            bg-[#f8fbff]
+
+            border
+            border-slate-100
+
+            rounded-3xl
+
+            p-5
+
             text-center
-            pt-3
           ">
 
-            <p className="
-              text-3xl
-              font-black
-              text-cyan-600
+            <div className="
+              text-4xl
             ">
-              There are 20 questions
-              in this survey.
+              📊
+            </div>
+
+            <h2 className="
+              mt-3
+
+              text-lg
+              font-black
+
+              text-slate-700
+            ">
+              20 Questions
+            </h2>
+
+            <p className="
+              mt-2
+
+              text-sm
+              leading-relaxed
+
+              text-slate-500
+            ">
+              The survey contains
+              disaster scenario-based
+              urgency questions.
+            </p>
+
+          </div>
+
+          {/* CARD 3 */}
+
+          <div className="
+            bg-[#f8fbff]
+
+            border
+            border-slate-100
+
+            rounded-3xl
+
+            p-5
+
+            text-center
+          ">
+
+            <div className="
+              text-4xl
+            ">
+              🔒
+            </div>
+
+            <h2 className="
+              mt-3
+
+              text-lg
+              font-black
+
+              text-slate-700
+            ">
+              Privacy Protected
+            </h2>
+
+            <p className="
+              mt-2
+
+              text-sm
+              leading-relaxed
+
+              text-slate-500
+            ">
+              Your responses are
+              secure and used only
+              for research purposes.
             </p>
 
           </div>
@@ -228,19 +328,17 @@ function IntroPage() {
             items-center
             gap-4
 
-            bg-slate-100
+            bg-slate-50
 
             border
             border-slate-200
 
-            px-8
-            py-5
+            px-6
+            py-4
 
-            rounded-3xl
+            rounded-2xl
 
             cursor-pointer
-
-            shadow-sm
           ">
 
             <input
@@ -249,19 +347,15 @@ function IntroPage() {
 
               checked={accepted}
 
-              onChange={(e) => {
-
+              onChange={(e) =>
                 setAccepted(
                   e.target.checked
-                );
-
-                setError("");
-
-              }}
+                )
+              }
 
               className="
-                w-6
-                h-6
+                w-5
+                h-5
 
                 accent-cyan-500
               "
@@ -269,41 +363,17 @@ function IntroPage() {
             />
 
             <span className="
-              text-2xl
+              text-lg
               font-bold
 
               text-slate-700
             ">
-              Accept survey privacy policy
+              I accept the privacy policy
             </span>
 
           </label>
 
         </div>
-
-        {/* ERROR */}
-
-        {
-
-          error && (
-
-            <div className="
-              mt-5
-
-              text-center
-
-              text-red-500
-              text-lg
-              font-semibold
-            ">
-
-              {error}
-
-            </div>
-
-          )
-
-        }
 
         {/* BUTTON */}
 
@@ -311,7 +381,7 @@ function IntroPage() {
           flex
           justify-center
 
-          mt-12
+          mt-10
         ">
 
           <button
@@ -319,10 +389,10 @@ function IntroPage() {
             onClick={handleNext}
 
             className="
-              px-12
-              py-5
+              px-10
+              py-4
 
-              rounded-3xl
+              rounded-2xl
 
               bg-gradient-to-r
               from-cyan-500
@@ -333,10 +403,10 @@ function IntroPage() {
 
               text-white
 
-              text-2xl
+              text-xl
               font-black
 
-              shadow-xl
+              shadow-lg
 
               transition-all
               duration-300
@@ -351,106 +421,6 @@ function IntroPage() {
         </div>
 
       </div>
-
-      {/* MODAL */}
-
-      {
-
-        showModal && (
-
-          <div className="
-            fixed
-            inset-0
-
-            bg-black/40
-
-            flex
-            items-center
-            justify-center
-
-            z-50
-          ">
-
-            <div className="
-              bg-white
-
-              p-8
-
-              rounded-3xl
-
-              w-[420px]
-
-              shadow-2xl
-            ">
-
-              <h1 className="
-                text-3xl
-                font-black
-
-                text-red-500
-              ">
-                Validation Error
-              </h1>
-
-              <p className="
-                mt-4
-
-                text-lg
-                text-slate-600
-
-                leading-relaxed
-              ">
-                Please accept the
-                privacy policy before
-                continuing.
-              </p>
-
-              <div className="
-                flex
-                justify-end
-
-                mt-8
-              ">
-
-                <button
-
-                  onClick={() =>
-                    setShowModal(false)
-                  }
-
-                  className="
-                    px-6
-                    py-3
-
-                    rounded-2xl
-
-                    bg-gradient-to-r
-                    from-cyan-500
-                    to-blue-600
-
-                    text-white
-
-                    font-bold
-                    text-lg
-
-                    hover:scale-105
-
-                    transition-all
-                  "
-
-                >
-                  OK
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        )
-
-      }
 
     </div>
 
