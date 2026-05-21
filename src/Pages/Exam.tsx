@@ -1008,6 +1008,87 @@ function Exam() {
 
           </div>
 
+
+          {/* QUESTION NAVIGATION */}
+
+<div className="
+  mt-6
+
+  flex
+  flex-wrap
+
+  gap-3
+">
+
+  {
+
+    questions.map((q, index) => {
+
+      const answered =
+        answers.find(
+          a =>
+            a.questionId === q.id
+        );
+
+      return (
+
+        <button
+
+          key={q.id}
+
+          onClick={() =>
+            setCurrentQuestion(index)
+          }
+
+          className={`
+            w-11
+            h-11
+
+            rounded-xl
+
+            text-sm
+            font-bold
+
+            transition-all
+
+            ${
+              currentQuestion === index
+
+              ?
+
+              "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
+
+              :
+
+              answered
+
+              ?
+
+              "bg-green-500 text-white"
+
+              :
+
+              "bg-slate-100 text-slate-600 hover:bg-slate-200"
+            }
+          `}
+
+        >
+
+          {index + 1}
+
+        </button>
+
+      );
+
+    })
+
+  }
+
+</div>
+
+
+
+
         </div>
 
         {/* QUESTION */}
