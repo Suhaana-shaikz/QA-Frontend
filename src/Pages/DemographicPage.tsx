@@ -348,12 +348,12 @@ function DemographicPage() {
 
               placeholder="Enter Your Email Id"
 
-              value={data.state}
+              value={data.email}
 
               onChange={(e) =>
                 setData({
                   ...data,
-                  state: e.target.value
+                  email: e.target.value
                 })
               }
 
