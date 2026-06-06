@@ -329,58 +329,7 @@ function DemographicPage() {
 
           {/* CITY */}
 
-          <div>
-
-            <label className="
-              text-lg
-              font-bold
-              text-slate-700
-            ">
-              City
-            </label>
-
-            <input
-
-              type="text"
-
-              placeholder="Enter City"
-
-              value={data.city}
-
-              onChange={(e) =>
-                setData({
-                  ...data,
-                  city: e.target.value
-                })
-              }
-
-              className="
-                w-full
-                mt-3
-
-                px-5
-                py-4
-
-                rounded-2xl
-
-                border
-                border-slate-200
-
-                bg-slate-50
-
-                text-lg
-                text-slate-700
-
-                outline-none
-
-                focus:border-cyan-400
-                focus:ring-4
-                focus:ring-cyan-100
-              "
-
-            />
-
-          </div>
+        
 
           {/* STATE */}
 
@@ -391,14 +340,14 @@ function DemographicPage() {
               font-bold
               text-slate-700
             ">
-              State
+             Email Id:
             </label>
 
             <input
 
               type="text"
 
-              placeholder="Enter State"
+              placeholder="Enter Your Email Id"
 
               value={data.state}
 
@@ -436,6 +385,17 @@ function DemographicPage() {
             />
 
           </div>
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 

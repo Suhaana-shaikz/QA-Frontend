@@ -1910,9 +1910,7 @@ function AdminDashboard() {
             Admin
           </h1>
 
-          <p className="text-slate-400 mt-2 text-sm">
-            Online Examination System
-          </p>
+     
 
         </div>
 

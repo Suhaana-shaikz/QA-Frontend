@@ -1875,22 +1875,6 @@ function Exam() {
                 rounded-full
               ">
 
-                <span className="
-                  text-cyan-700
-                  font-semibold
-                  text-sm
-                ">
-
-                  AI Score:
-                  {" "}
-
-                  {
-                    question.aiScore
-                    ||
-                    "Medium Urgency"
-                  }
-
-                </span>
 
               </div>
 
