@@ -1861,22 +1861,7 @@ function Exam() {
 
               {/* AI SCORE */}
 
-              <div className="
-                inline-flex
-
-                items-center
-                gap-2
-
-                bg-cyan-100
-
-                px-4
-                py-2
-
-                rounded-full
-              ">
-
-
-              </div>
+         
 
               {/* QUESTION */}
 
