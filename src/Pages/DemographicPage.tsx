@@ -14,8 +14,7 @@ function DemographicPage() {
     gender: "",
     age: "",
     qualification: "",
-    city: "",
-    state: ""
+    email: ""
 
   });
 
@@ -25,8 +24,8 @@ function DemographicPage() {
       !data.gender ||
       !data.age ||
       !data.qualification ||
-      !data.city ||
-      !data.state
+      !data.email
+    
     ) {
 
       alert("Please fill all details.");
