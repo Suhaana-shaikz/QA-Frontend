@@ -160,12 +160,12 @@ function DemographicPage() {
               font-bold
               text-slate-700
             ">
-              Age
+              Name :
             </label>
 
             <input
 
-              type="name"
+              type="text"
 
               placeholder="Enter Your Name"
 
