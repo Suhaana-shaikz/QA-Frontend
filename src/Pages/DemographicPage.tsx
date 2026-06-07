@@ -174,7 +174,7 @@ function DemographicPage() {
               onChange={(e) =>
                 setData({
                   ...data,
-                  age: e.target.value
+                  name: e.target.value
                 })
               }
 
