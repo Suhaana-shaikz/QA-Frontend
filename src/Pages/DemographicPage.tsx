@@ -10,7 +10,7 @@ function DemographicPage() {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
-
+    name:"",
     gender: "",
     age: "",
     qualification: "",
@@ -21,6 +21,7 @@ function DemographicPage() {
   const handleNext = () => {
 
     if (
+        !data.name ||
       !data.gender ||
       !data.age ||
       !data.qualification ||
@@ -153,6 +154,57 @@ function DemographicPage() {
           {/* GENDER */}
 
           <div>
+
+               <label className="
+              text-lg
+              font-bold
+              text-slate-700
+            ">
+              Age
+            </label>
+
+            <input
+
+              type="name"
+
+              placeholder="Enter Your Name"
+
+              value={data.name}
+
+              onChange={(e) =>
+                setData({
+                  ...data,
+                  age: e.target.value
+                })
+              }
+
+              className="
+                w-full
+                mt-3
+
+                px-5
+                py-4
+
+                rounded-2xl
+
+                border
+                border-slate-200
+
+                bg-slate-50
+
+                text-lg
+                text-slate-700
+
+                outline-none
+
+                focus:border-cyan-400
+                focus:ring-4
+                focus:ring-cyan-100
+              "
+
+            />
+
+
 
             <label className="
               text-lg
