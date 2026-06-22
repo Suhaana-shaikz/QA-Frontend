@@ -183,13 +183,21 @@ function Exam() {
 
     }
 
+    // const studentData = JSON.parse(
+
+    //   localStorage.getItem(
+    //     "studentData"
+    //   ) || "null"
+
+    // );
+
     const studentData = JSON.parse(
 
-      localStorage.getItem(
-        "studentData"
-      ) || "null"
+  localStorage.getItem(
+    "demographic"
+  ) || "null"
 
-    );
+);
 
     try {
 
