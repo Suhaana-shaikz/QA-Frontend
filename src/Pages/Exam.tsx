@@ -7,7 +7,9 @@ const STUDENT_API =
 
 type Question = {
 
-  id: number;
+
+questionId: number;
+questionNumber: number;
 
   question: string;
 
@@ -90,11 +92,11 @@ function Exam() {
 
       ...prev.filter(
         a =>
-          a.questionId !== question.id
+          a.questionId !== question.questionId
       ),
 
       {
-        questionId: question.id,
+        questionId: question.questionId,
         selectedOption: option
       }
 
@@ -109,7 +111,7 @@ function Exam() {
   const selected =
     answers.find(
       a =>
-        a.questionId === question?.id
+        a.questionId === question?.questionId
     );
 
   // PROGRESS
@@ -201,17 +203,32 @@ function Exam() {
 
     try {
 
-      await axios.post(
+      // await axios.post(
 
-        `${STUDENT_API}/student/submit`,
+      //   `${STUDENT_API}/student/submit`,
 
-        {
-          ...studentData,
-          answers
-        }
+      //   {
+      //     ...studentData,
+      //     answers
+      //   }
 
-      );
+      // );
+const res = await axios.post(
+    `${STUDENT_API}/student/submit`,
+    {
+        ...studentData,
+        answers
+    }
+);
 
+if (res.data === "EMAIL_EXISTS") {
+
+    alert("This email has already submitted the survey.");
+
+    navigate("/");
+
+    return;
+}
       localStorage.removeItem(
         "questions"
       );
