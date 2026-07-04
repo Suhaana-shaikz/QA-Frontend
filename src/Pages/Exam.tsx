@@ -25,9 +25,11 @@ questionNumber: number;
 
 type Answer = {
 
-  questionId: number;
 
-  selectedOption: string;
+
+    questionId: number;
+    questionNumber: number;
+    selectedOption: string;
 
 };
 
@@ -88,19 +90,19 @@ function Exam() {
 
     if (!question) return;
 
-    setAnswers(prev => [
+ setAnswers(prev => [
 
-      ...prev.filter(
-        a =>
-          a.questionId !== question.questionId
-      ),
+    ...prev.filter(
+        a => a.questionId !== question.questionId
+    ),
 
-      {
+    {
         questionId: question.questionId,
+        questionNumber: question.questionNumber,
         selectedOption: option
-      }
+    }
 
-    ]);
+]);
 
     setError("");
 
