@@ -5,54 +5,22 @@ import { useNavigate } from "react-router-dom";
 const STUDENT_API =
 "https://examsystem-3.onrender.com";
 
-// type Question = {
-
-//   id: number;
-
-//   question: string;
-
-//   aiScore?: string;
-
-//   option1: string;
-
-//   option2: string;
-
-//   option3: string;
-
-// };
-
-// type Answer = {
-
-//   questionId: number;
-
-//   selectedOption: string;
-
-// };
-
-
-
-
 type Question = {
-    id: number;
-    question: string;
-    questionNumber?: number;
 
-    option1: string;
-    option2: string;
-    option3: string;
-    option4?: string;
+  id: number;
+  question: string;
+
+  option1: string;
+  option2: string;
+  option3: string;
+  option4: string;
+
 };
-
 type Answer = {
     questionId: number;
     questionNumber: number;
     selectedOption: string;
 };
-
-
-
-
-
 
 function Exam() {
 
@@ -105,52 +73,30 @@ function Exam() {
 
   // SELECT OPTION
 
-  // const handleSelect = (
-  //   option: string
-  // ) => {
-
-  //   if (!question) return;
-
-  //   setAnswers(prev => [
-
-  //     ...prev.filter(
-  //       a =>
-  //         a.questionId !== question.id
-  //     ),
-
-  //     {
-  //       questionId: question.id,
-  //       selectedOption: option
-  //     }
-
-  //   ]);
-
-  //   setError("");
-
-  // };
-
-
-
-  const handleSelect = (option: string) => {
+  const handleSelect = (
+    option: string
+  ) => {
 
     if (!question) return;
 
     setAnswers(prev => [
 
-        ...prev.filter(
-            a => a.questionId !== question.id
-        ),
+      ...prev.filter(
+        a =>
+          a.questionId !== question.id
+      ),
 
-        {
-            questionId: question.id,
-            questionNumber: currentQuestion + 1,
-            selectedOption: option
-        }
+ {
+    questionId: question.id,
+    questionNumber: currentQuestion + 1,
+    selectedOption: option
+}
 
     ]);
 
     setError("");
-};
+
+  };
 
   // CURRENT ANSWER
 
@@ -395,11 +341,11 @@ function Exam() {
                 text-2xl
                 font-black
                 text-blue-600
-              ">
-                {currentQuestion + 1}
-                /
-                {questions.length}
-              </h2>
+              ">  {currentQuestion + 1}</h2>
+
+              <p className="mt-3 text-2xl font-semibold">
+    {question.question}
+</p>
 
             </div>
 
@@ -445,7 +391,7 @@ function Exam() {
 
           {/* QUESTION NAVIGATION */}
 
-          {/* <div className="
+          <div className="
             mt-6
 
             flex
@@ -456,129 +402,46 @@ function Exam() {
 
             {
 
-              questions.map((q, index) => {
+          questions.map((q, index) => {
 
-                const answered =
-                  answers.find(
-                    a =>
-                      a.questionId === q.id
-                  );
+    const answered =
+      answers.find(
+        a =>
+          a.questionNumber === index + 1
+      );
 
-                return (
+    return (
 
-                  <button
+        <button
+            key={q.id}
+            onClick={() => setCurrentQuestion(index)}
+            className={`
+              w-11
+              h-11
+              rounded-xl
+              text-sm
+              font-bold
+              transition-all
 
-                    key={q.id}
+              ${
+                currentQuestion === index
+                  ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
+                  : answered
+                  ? "bg-green-500 text-white"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }
+            `}
+        >
+            {index + 1}
+        </button>
 
-                    onClick={() =>
-                      setCurrentQuestion(index)
-                    }
+    );
 
-                    className={`
-                      w-11
-                      h-11
-
-                      rounded-xl
-
-                      text-sm
-                      font-bold
-
-                      transition-all
-
-                      ${
-                        currentQuestion === index
-
-                        ?
-
-                        "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
-
-                        :
-
-                        answered
-
-                        ?
-
-                        "bg-green-500 text-white"
-
-                        :
-
-                        "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }
-                    `}
-
-                  >
-
-                    {index + 1}
-
-                  </button>
-
-                );
-
-              })
+})
 
             }
 
-          </div> */}
-
-
-          {/* QUESTION NAVIGATION */}
-
-<div className="
-    mt-6
-    flex
-    flex-wrap
-    gap-3
-">
-
-{
-    questions.map((q, index) => (
-
-        <button
-
-            key={q.id}
-
-            onClick={() => setCurrentQuestion(index)}
-
-            className={`
-                w-11
-                h-11
-
-                rounded-xl
-
-                text-sm
-                font-bold
-
-                transition-all
-
-                ${
-                    currentQuestion === index
-
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
-
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }
-            `}
-        >
-
-            {index + 1}
-
-        </button>
-
-    ))
-}
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
+          </div>
 
         </div>
 
@@ -653,7 +516,8 @@ function Exam() {
                   [
                     question.option1,
                     question.option2,
-                    question.option3
+                    question.option3,
+                    question.option4
                   ]
 
                   .map(option => (
