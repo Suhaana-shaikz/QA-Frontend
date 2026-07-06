@@ -7,9 +7,7 @@ const STUDENT_API =
 
 // type Question = {
 
-
-// questionId: number;
-// questionNumber: number;
+//   id: number;
 
 //   question: string;
 
@@ -23,17 +21,21 @@ const STUDENT_API =
 
 // };
 
+// type Answer = {
 
+//   questionId: number;
+
+//   selectedOption: string;
+
+// };
 
 
 
 
 type Question = {
     id: number;
-
-    questionNumber: number;
-
     question: string;
+    questionNumber?: number;
 
     option1: string;
     option2: string;
@@ -42,14 +44,15 @@ type Question = {
 };
 
 type Answer = {
-
-
-
     questionId: number;
     questionNumber: number;
     selectedOption: string;
-
 };
+
+
+
+
+
 
 function Exam() {
 
@@ -102,35 +105,52 @@ function Exam() {
 
   // SELECT OPTION
 
-  const handleSelect = (
-    option: string
-  ) => {
+  // const handleSelect = (
+  //   option: string
+  // ) => {
+
+  //   if (!question) return;
+
+  //   setAnswers(prev => [
+
+  //     ...prev.filter(
+  //       a =>
+  //         a.questionId !== question.id
+  //     ),
+
+  //     {
+  //       questionId: question.id,
+  //       selectedOption: option
+  //     }
+
+  //   ]);
+
+  //   setError("");
+
+  // };
+
+
+
+  const handleSelect = (option: string) => {
 
     if (!question) return;
 
- setAnswers(prev => [
+    setAnswers(prev => [
 
-    ...prev.filter(
-        a => a.questionId !== question.id
-    ),
+        ...prev.filter(
+            a => a.questionId !== question.id
+        ),
 
-    {
-    questionId: question.id,
-    questionNumber: currentQuestion + 1,
-    selectedOption: option
-    }
+        {
+            questionId: question.id,
+            questionNumber: currentQuestion + 1,
+            selectedOption: option
+        }
 
-    // {
-    //     // questionId: question.questionId,
-    //     // questionNumber: question.questionNumber,
-    //     // selectedOption: option
-    // }
-
-]);
+    ]);
 
     setError("");
-
-  };
+};
 
   // CURRENT ANSWER
 
@@ -229,32 +249,17 @@ function Exam() {
 
     try {
 
-      // await axios.post(
+      await axios.post(
 
-      //   `${STUDENT_API}/student/submit`,
+        `${STUDENT_API}/student/submit`,
 
-      //   {
-      //     ...studentData,
-      //     answers
-      //   }
+        {
+          ...studentData,
+          answers
+        }
 
-      // );
-const res = await axios.post(
-    `${STUDENT_API}/student/submit`,
-    {
-        ...studentData,
-        answers
-    }
-);
+      );
 
-if (res.data === "EMAIL_EXISTS") {
-
-    alert("This email has already submitted the survey.");
-
-    navigate("/");
-
-    return;
-}
       localStorage.removeItem(
         "questions"
       );
@@ -440,7 +445,7 @@ if (res.data === "EMAIL_EXISTS") {
 
           {/* QUESTION NAVIGATION */}
 
-          <div className="
+          {/* <div className="
             mt-6
 
             flex
@@ -451,111 +456,129 @@ if (res.data === "EMAIL_EXISTS") {
 
             {
 
+              questions.map((q, index) => {
 
-questions.map((q, index) => {
+                const answered =
+                  answers.find(
+                    a =>
+                      a.questionId === q.id
+                  );
 
-    const answered = answers.find(
-        a => a.questionId === q.id
-    );
+                return (
 
-    return (
+                  <button
 
-        <button
-            key={q.id}
-            onClick={() => setCurrentQuestion(index)}
-        >
+                    key={q.id}
 
-            {q.questionNumber}
+                    onClick={() =>
+                      setCurrentQuestion(index)
+                    }
 
-        </button>
+                    className={`
+                      w-11
+                      h-11
 
-    );
+                      rounded-xl
 
-})
+                      text-sm
+                      font-bold
 
+                      transition-all
 
+                      ${
+                        currentQuestion === index
 
+                        ?
 
-//               questions.map((q, index) => {
+                        "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
 
-//                 const answered =
-//                   answers.find(
-//                     a =>
-//                       a.questionId === q.id
-//                   );
+                        :
 
+                        answered
 
-//                 return (
+                        ?
 
-//                   <button
+                        "bg-green-500 text-white"
 
-//                     key={q.id}
+                        :
 
-//                     onClick={() =>
-//                       setCurrentQuestion(index)
-//                     }
+                        "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }
+                    `}
 
-//                     className={`
-//                       w-11
-//                       h-11
+                  >
 
-//                       rounded-xl
+                    {index + 1}
 
-//                       text-sm
-//                       font-bold
+                  </button>
 
-//                       transition-all
+                );
 
-//                       ${
-//                         currentQuestion === index
-
-//                         ?
-
-//                         "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
-
-//                         :
-
-//                         answered
-
-//                         ?
-
-//                         "bg-green-500 text-white"
-
-//                         :
-
-//                         "bg-slate-100 text-slate-600 hover:bg-slate-200"
-//                       }
-//                     `}
-
-//                   >
-// {/* 
-//                     {index + 1} */}
-//                     {q.questionNumber}
-
-//                   </button>
-
-//                 );
-
-//               })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              })
 
             }
 
-          </div>
+          </div> */}
+
+
+          {/* QUESTION NAVIGATION */}
+
+<div className="
+    mt-6
+    flex
+    flex-wrap
+    gap-3
+">
+
+{
+    questions.map((q, index) => (
+
+        <button
+
+            key={q.id}
+
+            onClick={() => setCurrentQuestion(index)}
+
+            className={`
+                w-11
+                h-11
+
+                rounded-xl
+
+                text-sm
+                font-bold
+
+                transition-all
+
+                ${
+                    currentQuestion === index
+
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
+
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }
+            `}
+        >
+
+            {index + 1}
+
+        </button>
+
+    ))
+}
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 
