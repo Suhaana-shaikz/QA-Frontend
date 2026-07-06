@@ -71,6 +71,18 @@ function Exam() {
   const question =
     questions[currentQuestion];
 
+
+if (questions.length === 0) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <h2 className="text-2xl font-bold text-gray-600">
+        Loading Questions...
+      </h2>
+    </div>
+  );
+}
+
+
   // SELECT OPTION
 
   const handleSelect = (
@@ -320,7 +332,7 @@ function Exam() {
             </div>
 
             {/* QUESTION COUNT */}
-
+{/* 
             <div className="
               bg-slate-100
 
@@ -343,11 +355,39 @@ function Exam() {
                 text-blue-600
               ">  {currentQuestion + 1}</h2>
 
-              <p className="mt-3 text-2xl font-semibold">
-    {question.question}
+ <p className="mt-3 text-2xl font-semibold">
+    {question?.question}
 </p>
 
-            </div>
+            </div> */}
+
+
+
+            {/* QUESTION COUNT */}
+
+<div className="
+  bg-slate-100
+  px-5
+  py-3
+  rounded-2xl
+">
+
+  <p className="
+    text-sm
+    text-slate-500
+  ">
+    Question
+  </p>
+
+  <h2 className="
+    text-2xl
+    font-black
+    text-blue-600
+  ">
+    {currentQuestion + 1} / {questions.length}
+  </h2>
+
+</div>
 
           </div>
 
@@ -404,11 +444,15 @@ function Exam() {
 
           questions.map((q, index) => {
 
-    const answered =
-      answers.find(
-        a =>
-          a.questionNumber === index + 1
-      );
+            const answered = answers.some(
+    a => a.questionId === q.id
+);
+
+    // const answered =
+    //   answers.find(
+    //     a =>
+    //       a.questionNumber === index + 1
+    //   );
 
     return (
 
