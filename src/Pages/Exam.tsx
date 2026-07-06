@@ -5,22 +5,40 @@ import { useNavigate } from "react-router-dom";
 const STUDENT_API =
 "https://examsystem-3.onrender.com";
 
+// type Question = {
+
+
+// questionId: number;
+// questionNumber: number;
+
+//   question: string;
+
+//   aiScore?: string;
+
+//   option1: string;
+
+//   option2: string;
+
+//   option3: string;
+
+// };
+
+
+
+
+
+
 type Question = {
+    id: number;
 
+    questionNumber: number;
 
-questionId: number;
-questionNumber: number;
+    question: string;
 
-  question: string;
-
-  aiScore?: string;
-
-  option1: string;
-
-  option2: string;
-
-  option3: string;
-
+    option1: string;
+    option2: string;
+    option3: string;
+    option4?: string;
 };
 
 type Answer = {
@@ -93,14 +111,20 @@ function Exam() {
  setAnswers(prev => [
 
     ...prev.filter(
-        a => a.questionId !== question.questionId
+        a => a.questionId !== question.id
     ),
 
     {
-        questionId: question.questionId,
-        questionNumber: question.questionNumber,
-        selectedOption: option
+    questionId: question.id,
+    questionNumber: currentQuestion + 1,
+    selectedOption: option
     }
+
+    // {
+    //     // questionId: question.questionId,
+    //     // questionNumber: question.questionNumber,
+    //     // selectedOption: option
+    // }
 
 ]);
 
@@ -113,7 +137,7 @@ function Exam() {
   const selected =
     answers.find(
       a =>
-        a.questionId === question?.questionId
+        a.questionId === question?.id
     );
 
   // PROGRESS
@@ -427,65 +451,107 @@ if (res.data === "EMAIL_EXISTS") {
 
             {
 
-              questions.map((q, index) => {
 
-                const answered =
-                  answers.find(
-                    a =>
-                      a.questionId === q.id
-                  );
+questions.map((q, index) => {
 
-                return (
+    const answered = answers.find(
+        a => a.questionId === q.id
+    );
 
-                  <button
+    return (
 
-                    key={q.id}
+        <button
+            key={q.id}
+            onClick={() => setCurrentQuestion(index)}
+        >
 
-                    onClick={() =>
-                      setCurrentQuestion(index)
-                    }
+            {q.questionNumber}
 
-                    className={`
-                      w-11
-                      h-11
+        </button>
 
-                      rounded-xl
+    );
 
-                      text-sm
-                      font-bold
+})
 
-                      transition-all
 
-                      ${
-                        currentQuestion === index
 
-                        ?
 
-                        "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
+//               questions.map((q, index) => {
 
-                        :
+//                 const answered =
+//                   answers.find(
+//                     a =>
+//                       a.questionId === q.id
+//                   );
 
-                        answered
 
-                        ?
+//                 return (
 
-                        "bg-green-500 text-white"
+//                   <button
 
-                        :
+//                     key={q.id}
 
-                        "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                      }
-                    `}
+//                     onClick={() =>
+//                       setCurrentQuestion(index)
+//                     }
 
-                  >
+//                     className={`
+//                       w-11
+//                       h-11
 
-                    {index + 1}
+//                       rounded-xl
 
-                  </button>
+//                       text-sm
+//                       font-bold
 
-                );
+//                       transition-all
 
-              })
+//                       ${
+//                         currentQuestion === index
+
+//                         ?
+
+//                         "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-110"
+
+//                         :
+
+//                         answered
+
+//                         ?
+
+//                         "bg-green-500 text-white"
+
+//                         :
+
+//                         "bg-slate-100 text-slate-600 hover:bg-slate-200"
+//                       }
+//                     `}
+
+//                   >
+// {/* 
+//                     {index + 1} */}
+//                     {q.questionNumber}
+
+//                   </button>
+
+//                 );
+
+//               })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             }
 
