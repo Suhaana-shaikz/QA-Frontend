@@ -17,7 +17,7 @@ function IntroPage() {
     if (!accepted) {
 
       alert(
-        "Please accept the privacy policy."
+        "I consent to participate in this surevey."
       );
 
       return;

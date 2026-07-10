@@ -376,6 +376,16 @@ function ExpertCategory() {
               Are you a Triage Expert?
             </h2>
 
+            
+<p className="
+    mt-3
+    text-slate-500
+    text-base
+    leading-8
+">
+    <span className="font-semibold">Note:</span> Think of AI as a tool that can be trained to perform specific intelligent tasks, rather than as a human-like robot or brain.
+</p>
+
             <div className="
               flex
               gap-5
