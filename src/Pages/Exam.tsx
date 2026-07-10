@@ -494,8 +494,8 @@ if (questions.length === 0) {
               }
             `}
         >
-            {/* {index + 1} */}
-            {q.questionNumber}
+            {index + 1}
+            {/* {q.questionNumber} */}
         </button>
 
     );
