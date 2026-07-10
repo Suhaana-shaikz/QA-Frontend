@@ -23,6 +23,15 @@ import {
 const STUDENT_API = "https://examsystem-3.onrender.com";
 const QUESTION_API = "https://examsystem-4.onrender.com";
 
+// type Question = {
+//   id: number;
+//   question: string;
+//   option1: string;
+//   option2: string;
+//   option3: string;
+//   option4: string;
+// };
+
 type Question = {
   id: number;
   question: string;
@@ -30,6 +39,7 @@ type Question = {
   option2: string;
   option3: string;
   option4: string;
+  aiScore: string;
 };
 
 type StudentData = {
@@ -73,13 +83,23 @@ function AdminDashboard() {
 
 
 
+  // const [form, setForm] = useState<Omit<Question, "id">>({
+  //   question: "",
+  //   option1: "",
+  //   option2: "",
+  //   option3: "",
+  //   option4: ""
+  // });
+
+
   const [form, setForm] = useState<Omit<Question, "id">>({
     question: "",
     option1: "",
     option2: "",
     option3: "",
-    option4: ""
-  });
+    option4: "",
+    aiScore: ""
+});
 
   const token = localStorage.getItem("auth");
 
@@ -226,7 +246,9 @@ function AdminDashboard() {
         option1: "",
         option2: "",
         option3: "",
-        option4: ""
+        option4: "",
+        aiScore:""
+
       });
 
       setEditId(null);

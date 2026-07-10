@@ -28,6 +28,8 @@ type Question = {
   option3: string;
   option4: string;
 
+    aiScore: string;
+
 };
 type Answer = {
     questionId: number;
@@ -525,7 +527,7 @@ if (questions.length === 0) {
 
               {/* QUESTION */}
 
-              <h2 className="
+              {/* <h2 className="
                 font-medium text-xl text-gray-700
 
                 text-2xl
@@ -540,7 +542,54 @@ if (questions.length === 0) {
 
                 {question.question}
 
-              </h2>
+              </h2> */}
+
+
+              {/* QUESTION */}
+
+<h2
+  className="
+    font-medium
+    text-xl
+    text-gray-700
+    text-2xl
+    md:text-3xl
+    leading-relaxed
+  "
+>
+  {question.question}
+</h2>
+
+{/* AI SCORE */}
+
+<div
+  className="
+    mt-6
+    mb-8
+
+    bg-blue-50
+    border-l-4
+    border-blue-600
+
+    rounded-xl
+
+    p-4
+  "
+>
+
+  <span className="font-bold text-blue-700">
+      AI Score :
+  </span>
+
+  <span className="ml-2 font-semibold text-slate-700">
+      {question.aiScore}
+  </span>
+
+</div>
+
+
+
+
 
               {/* ERROR */}
 
