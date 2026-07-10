@@ -560,6 +560,10 @@ if (questions.length === 0) {
   {question.question}
 </h2>
 
+
+
+
+
 {/* AI SCORE */}
 
 <div

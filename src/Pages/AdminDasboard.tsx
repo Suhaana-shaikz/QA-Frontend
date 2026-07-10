@@ -580,6 +580,23 @@ function AdminDashboard() {
                       {q.question}
                     </h2>
 
+                      {/* AI SCORE */}
+                  <div
+    className="
+      mt-4
+      inline-block
+      bg-blue-100
+      text-blue-700
+      px-4
+      py-2
+      rounded-xl
+      font-semibold
+    "
+               >
+    AI Score : {q.aiScore}
+              </div>
+
+
                   </div>
 
                 </div>
