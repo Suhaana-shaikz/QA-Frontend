@@ -5,9 +5,22 @@ import { useNavigate } from "react-router-dom";
 const STUDENT_API =
 "https://examsystem-3.onrender.com";
 
+// type Question = {
+
+//   id: number;
+//   question: string;
+
+//   option1: string;
+//   option2: string;
+//   option3: string;
+//   option4: string;
+
+// };
+
 type Question = {
 
   id: number;
+  questionNumber: number;   // <-- ADD THIS
   question: string;
 
   option1: string;
@@ -98,9 +111,14 @@ if (questions.length === 0) {
           a.questionId !== question.id
       ),
 
- {
+//  {
+//     questionId: question.id,
+//     questionNumber: currentQuestion + 1,
+//     selectedOption: option
+// }
+{
     questionId: question.id,
-    questionNumber: currentQuestion + 1,
+    questionNumber: question.questionNumber,
     selectedOption: option
 }
 
@@ -476,7 +494,8 @@ if (questions.length === 0) {
               }
             `}
         >
-            {index + 1}
+            {/* {index + 1} */}
+            {q.questionNumber}
         </button>
 
     );
