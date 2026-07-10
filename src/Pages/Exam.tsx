@@ -567,18 +567,17 @@ if (questions.length === 0) {
 {/* AI SCORE */}
 
 <div
-  className="
-    mt-6
-    mb-8
-
-    bg-blue-50
-    border-l-4
-    border-blue-600
-
+  className="inline-flex
+    items-center
+    mt-4
+    bg-blue-100
+    text-blue-700
+    px-4
+    py-2
     rounded-xl
-
-    p-4
+    font-semibold
   "
+
 >
 
   <span className="font-bold text-blue-700">
@@ -633,7 +632,7 @@ if (questions.length === 0) {
                     question.option1,
                     question.option2,
                     question.option3,
-                    question.option4
+                 
                   ]
 
                   .map(option => (
