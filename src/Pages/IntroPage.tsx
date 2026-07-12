@@ -415,7 +415,7 @@ function IntroPage() {
             "
 
           >
-            Start Survey
+            I consent to participate in this survey
           </button>
 
         </div>

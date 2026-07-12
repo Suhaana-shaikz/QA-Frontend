@@ -383,7 +383,7 @@ function ExpertCategory() {
     text-base
     leading-8
 ">
-    <span className="font-semibold">Note:</span> Think of AI as a tool that can be trained to perform specific intelligent tasks, rather than as a human-like robot or brain.
+    <span className="font-semibold">Note:</span> Triage is about making smart,quick prioritization decisions when you can't do everything at once.
 </p>
 
             <div className="
