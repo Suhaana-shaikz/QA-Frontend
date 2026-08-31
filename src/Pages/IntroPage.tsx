@@ -140,7 +140,7 @@ function IntroPage() {
 
           text-slate-800
         ">
-          Triage Case
+          Triaging SOS Messages 
         </h1>
 
         {/* SUBTITLE */}
@@ -375,9 +375,84 @@ function IntroPage() {
 
         </div>
 
+
+   <div className="
+          flex
+          justify-between
+
+          mt-10
+        ">
+
+          <button
+
+            onClick={() =>
+              navigate("/")
+            }
+
+            className="
+              px-8
+              py-4
+
+              rounded-2xl
+
+              bg-slate-200
+
+              text-slate-700
+              text-lg
+              font-bold
+
+              hover:bg-slate-300
+
+              transition-all
+            "
+
+          >
+            Previous
+          </button>
+
+          <button
+
+            onClick={handleNext}
+
+            className="
+              px-8
+              py-4
+
+              rounded-2xl
+
+              bg-gradient-to-r
+              from-cyan-500
+              to-blue-600
+
+              hover:from-cyan-600
+              hover:to-blue-700
+
+              text-white
+              text-lg
+              font-black
+
+              shadow-xl
+
+              transition-all
+              duration-300
+
+              hover:scale-105
+            "
+
+          >
+            Next
+          </button>
+
+        </div>
+
+
+
+
+
+
         {/* BUTTON */}
 
-        <div className="
+        {/* <div className="
           flex
           justify-center
 
@@ -418,7 +493,7 @@ function IntroPage() {
             I consent to participate in this survey
           </button>
 
-        </div>
+        </div> */}
 
       </div>
 

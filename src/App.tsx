@@ -53,6 +53,8 @@ import {
   Route
 } from "react-router-dom";
 
+
+
 import IntroPage
 from "./Pages/IntroPage";
 
@@ -70,6 +72,8 @@ from "./Pages/AdminLogin";
 
 import AdminDashboard
 from "./Pages/AdminDasboard";
+
+import SurveyInstructions from "./Pages/SurveyInstructions";
 
 function App() {
 
@@ -95,6 +99,11 @@ function App() {
           path="/expert"
           element={<ExpertCategory />}
         />
+
+        <Route
+  path="/instructions"
+  element={<SurveyInstructions />}
+/>
 
         <Route
           path="/exam"

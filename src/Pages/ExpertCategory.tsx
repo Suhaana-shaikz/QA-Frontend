@@ -2,10 +2,13 @@
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 
-const QUESTION_API =
-"https://examsystem-4.onrender.com";
+
+// const QUESTION_API =
+// "https://examsystem-4.onrender.com";
+
+// const [aiExpert, setAiExpert] = useState("");
+// const [triageExpert, setTriageExpert] = useState("");
 
 function ExpertCategory() {
 
@@ -19,70 +22,106 @@ function ExpertCategory() {
 
   });
 
-  const [loading,
-  setLoading]
-  =
-  useState(false);
+  // const [loading,
+  // setLoading]
+  // =
+  // useState(false);
 
-  const handleStart =
-  async () => {
 
-    if (
-      !data.aiExpert ||
-      !data.triageExpert
-    ) {
+  // const [loading, setLoading] = useState(false);
 
-      alert(
-        "Please answer all questions."
-      );
 
-      return;
 
-    }
+  // const handleStart =
+  // async () => {
 
-    setLoading(true);
+  //       if (!aiExpert || !triageExpert) {
+  //       alert("Please answer both questions.");
+  //       return;
+  //   }
 
-    try {
+  //   localStorage.setItem(
+  //       "expertCategory",
+  //       JSON.stringify({
+  //           aiExpert,
+  //           triageExpert
+  //       })
+  //   );
 
-      localStorage.setItem(
-        "expertCategory",
-        JSON.stringify(data)
-      );
+  //   if (
+  //     !data.aiExpert ||
+  //     !data.triageExpert
+  //   ) {
 
-      const limit =
-      Number(
-        localStorage.getItem(
-          "questionLimit"
-        )
-      ) || 20;
+  //     alert(
+  //       "Please answer all questions."
+  //     );
 
-      const res =
-      await axios.get(
-        `${QUESTION_API}/questions/random/${limit}`
-      );
+  //     return;
 
-      localStorage.setItem(
-        "questions",
-        JSON.stringify(res.data)
-      );
+  //   }
 
-      navigate("/exam");
+  //   setLoading(true);
 
-    } catch (error) {
+  //   try {
 
-      console.log(error);
+  //     localStorage.setItem(
+  //       "expertCategory",
+  //       JSON.stringify(data)
+  //     );
 
-      alert(
-        "Failed to load questions."
-      );
+  //     const limit =
+  //     Number(
+  //       localStorage.getItem(
+  //         "questionLimit"
+  //       )
+  //     ) || 20;
 
-    } finally {
+  //     const res =
+  //     await axios.get(
+  //       `${QUESTION_API}/questions/random/${limit}`
+  //     );
 
-      setLoading(false);
+  //     localStorage.setItem(
+  //       "questions",
+  //       JSON.stringify(res.data)
+  //     );
 
-    }
 
-  };
+
+
+
+  //     navigate("/exam");
+
+  //   } catch (error) {
+
+  //     console.log(error);
+
+  //     alert(
+  //       "Failed to load questions."
+  //     );
+
+  //   } finally {
+
+  //     setLoading(false);
+
+  //   }
+
+  // };
+  const handleStart = () => {
+
+  if (!data.aiExpert || !data.triageExpert) {
+    alert("Please answer all questions.");
+    return;
+  }
+
+  localStorage.setItem(
+    "expertCategory",
+    JSON.stringify(data)
+  );
+
+  navigate("/instructions");
+};
 
   return (
 
@@ -561,7 +600,7 @@ function ExpertCategory() {
           </button>
 
           {/* START */}
-
+{/* 
           <button
 
             onClick={handleStart}
@@ -605,11 +644,35 @@ function ExpertCategory() {
 
               :
 
-              "Start Survey"
+              "Next"
 
             }
 
-          </button>
+          </button> */}
+
+
+          <button
+  onClick={handleStart}
+  className="
+    px-8
+    py-4
+    rounded-2xl
+    bg-gradient-to-r
+    from-cyan-500
+    to-blue-600
+    hover:from-cyan-600
+    hover:to-blue-700
+    text-white
+    text-lg
+    font-black
+    shadow-xl
+    transition-all
+    duration-300
+    hover:scale-105
+  "
+>
+  Next
+</button>
 
         </div>
 
