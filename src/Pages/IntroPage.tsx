@@ -378,7 +378,7 @@ function IntroPage() {
 
    <div className="
           flex
-          justify-between
+          justify-end
 
           mt-10
         ">
@@ -417,6 +417,9 @@ function IntroPage() {
             className="
               px-8
               py-4
+
+
+
 
               rounded-2xl
 
