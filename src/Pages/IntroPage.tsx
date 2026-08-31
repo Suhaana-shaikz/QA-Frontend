@@ -383,7 +383,7 @@ function IntroPage() {
           mt-10
         ">
 
-          <button
+          {/* <button
 
             onClick={() =>
               navigate("/")
@@ -408,7 +408,7 @@ function IntroPage() {
 
           >
             Previous
-          </button>
+          </button> */}
 
           <button
 

@@ -287,17 +287,17 @@ function SurveyInstructions() {
 
         {/* BUTTONS */}
 
-        <div
+        {/* <div
           className="
             flex
             justify-between
             mt-8
           "
-        >
+        >  */}
 
           {/* PREVIOUS */}
 
-          <button
+          {/* <button
             onClick={() =>
               navigate("/expert-category")
             }
@@ -314,11 +314,11 @@ function SurveyInstructions() {
             "
           >
             Previous
-          </button>
+          </button> */}
 
 
           {/* START SURVEY */}
-
+{/* 
           <button
             onClick={handleStartSurvey}
             disabled={loading}
@@ -345,9 +345,83 @@ function SurveyInstructions() {
             {loading
               ? "Loading..."
               : "Start Survey"}
-          </button>
+          </button> */}
 
-        </div>
+
+          
+
+        {/* </div> */}
+
+
+
+
+
+<div className="flex justify-between items-center mt-8 sm:mt-10 gap-3 sm:gap-6">
+
+  {/* Previous Button */}
+  <button
+    onClick={() =>
+              navigate("/expert")
+            }
+    className="
+      px-4 py-2.5
+      sm:px-6 sm:py-3
+      md:px-8 md:py-4
+      rounded-xl sm:rounded-2xl
+      bg-slate-200
+      text-slate-700
+      text-sm sm:text-base md:text-lg
+      font-bold
+      hover:bg-slate-300
+      transition-all
+      whitespace-nowrap
+    "
+  >
+    Previous
+  </button>
+
+  {/* Start Survey Button */}
+  <button
+      onClick={handleStartSurvey}
+            disabled={loading}
+    className="
+      px-4 py-2.5
+      sm:px-6 sm:py-3
+      md:px-8 md:py-4
+      rounded-xl sm:rounded-2xl
+      bg-gradient-to-r
+      from-cyan-500
+      to-blue-600
+      hover:from-cyan-600
+      hover:to-blue-700
+      text-white
+      text-sm sm:text-base md:text-lg
+      font-black
+      shadow-xl
+      transition-all
+      duration-300
+      hover:scale-105
+      whitespace-nowrap
+    "
+  >
+    Start Survey
+  </button>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       </div>
 
