@@ -209,7 +209,7 @@ function DemographicPage() {
             <label className="
               text-lg
               font-bold
-              text-slate-700 mt-3
+              text-slate-700 mt-5
             ">
               Gender
             </label>
