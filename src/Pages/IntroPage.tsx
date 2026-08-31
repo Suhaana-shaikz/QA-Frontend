@@ -378,7 +378,7 @@ function IntroPage() {
 
    <div className="
           flex
-          justify-end
+          justify-center
 
           mt-10
         ">
