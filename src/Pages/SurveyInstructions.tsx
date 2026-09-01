@@ -8,7 +8,11 @@ const QUESTION_API =
 function SurveyInstructions() {
   const navigate = useNavigate();
 
-  const [consent, setConsent] = useState(false);
+  // const [consent, setConsent] = useState(false);
+
+  const [consent, setConsent] = useState(
+  localStorage.getItem("surveyConsent") === "true"
+);
   const [loading, setLoading] = useState(false);
 
   const handleStartSurvey = async () => {

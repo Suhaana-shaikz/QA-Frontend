@@ -1,7 +1,7 @@
 // 
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
 
 // const QUESTION_API =
@@ -22,6 +22,18 @@ function ExpertCategory() {
 
   });
 
+
+  
+
+
+
+  useEffect(() => {
+  const savedData = localStorage.getItem("expertCategory");
+
+  if (savedData) {
+    setData(JSON.parse(savedData));
+  }
+}, []);
   // const [loading,
   // setLoading]
   // =

@@ -3,7 +3,7 @@
 
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
 function DemographicPage() {
 
@@ -17,6 +17,14 @@ function DemographicPage() {
     email: ""
 
   });
+
+  useEffect(() => {
+  const savedData = localStorage.getItem("demographic");
+
+  if (savedData) {
+    setData(JSON.parse(savedData));
+  }
+}, []);
 
   const handleNext = () => {
 
