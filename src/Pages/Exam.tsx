@@ -225,6 +225,10 @@ if (questions.length === 0) {
 
 );
 
+  if (!studentData) {
+    setError("Demographic information not found.");
+    return;
+  }
     try {
 
       await axios.post(
