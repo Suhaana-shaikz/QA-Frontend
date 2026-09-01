@@ -238,9 +238,19 @@ if (questions.length === 0) {
 
       );
 
-      localStorage.removeItem(
-        "questions"
-      );
+      // localStorage.removeItem(
+      //   "questions"
+      // );
+
+      // Clear all survey data after successful submission
+
+localStorage.removeItem("questions");
+
+localStorage.removeItem("demographic");
+
+localStorage.removeItem("expertCategory");
+
+localStorage.removeItem("surveyConsent");
 
       setShowModal(true);
 
